@@ -5,10 +5,12 @@ var _ = require('lodash');
 
 var schema = new mongoose.Schema({
     email: {
-        type: String
+        type: String,
+        required: true
     },
     password: {
-        type: String
+        type: String,
+        required: true
     },
     salt: {
         type: String
@@ -24,8 +26,10 @@ var schema = new mongoose.Schema({
     },
     google: {
         id: String
-    }
+    },
+    orders:[mongoose.model('Order').schema]
 });
+
 
 // method to remove sensitive information from user objects before sending them out
 schema.methods.sanitize = function () {
