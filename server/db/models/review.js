@@ -10,9 +10,12 @@ var reviewSchema = mongoose.Schema({ //Reviews will be embedded into products, s
        default: Date.now
    },
    author: {
-       type: mongoose.Schema.Types.ObjectId,
-       ref: 'User'
+       type: mongoose.Schema.Types.ObjectId
    }
 });
+
+reviewSchema.methods.getAuthor = function(){
+  return mongoose.model('User').findById(this.author);
+};
 
 mongoose.model('Review', reviewSchema);

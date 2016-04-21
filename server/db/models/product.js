@@ -1,5 +1,4 @@
-var mongoose = require('mongoose'),
-    reviewSchema = require('review');
+var mongoose = require('mongoose');
 
 
 var productSchema = mongoose.Schema({
@@ -10,14 +9,22 @@ var productSchema = mongoose.Schema({
    imageUrl: String,
    category: {
        //movie names?
+       type: String
    },
    reviews: [mongoose.model('Review').schema]
 });
 
-productSchema.methods.addReview = function(review){
+productSchema.methods.addReview = function(reviewData, userId){
+    var review = this.model('Review')({
+      author: userId,
+      content: reviewData
+    });
     this.reviews.push(review);
     return this.save();
-    
-}
-mongoose.model('Product', productSchema);
 
+};
+
+productSchema.statics.findByCategory = function(category){
+  return this.model('Product').find({category: category});
+};
+mongoose.model('Product', productSchema);
