@@ -28,9 +28,17 @@ var schema = new mongoose.Schema({
     google: {
         id: String
     },
-    orders:[{type: mongoose.Schema.Types.ObjectId, ref: 'Order'}]
+    orders:[{type: mongoose.Schema.Types.ObjectId, ref: 'Order'}],
+    isAdmin:{
+      type: Boolean,
+      default: false
+    },
+    passwordReset: {
+      type: Boolean,
+      default: false
+    }
 });
-
+//Adds a user to an order, indicating the order is ready to be placed
 schema.methods.addOrder = function(order){
   this.orders.push(order._id);
   order.status = 'pending';
