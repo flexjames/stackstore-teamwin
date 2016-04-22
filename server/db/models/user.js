@@ -2,13 +2,16 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
+var Promise = require('bluebird');
 
 var schema = new mongoose.Schema({
     email: {
-        type: String
+        type: String,
+        required: true
     },
     password: {
-        type: String
+        type: String,
+        required: true
     },
     salt: {
         type: String
@@ -24,8 +27,28 @@ var schema = new mongoose.Schema({
     },
     google: {
         id: String
+    },
+    orders:[{type: mongoose.Schema.Types.ObjectId, ref: 'Order'}],
+    isAdmin:{
+      type: Boolean,
+      default: false
+    },
+    passwordReset: {
+      type: Boolean,
+      default: false
     }
 });
+//Adds a user to an order, indicating the order is ready to be placed
+schema.methods.addOrder = function(order){
+  this.orders.push(order._id);
+  order.status = 'pending';
+  order.user = this._id;
+  return Promise.join(this.save(), order.save())
+  .spread(function(user, order){
+    return Promise.resolve(order);
+  });
+
+};
 
 // method to remove sensitive information from user objects before sending them out
 schema.methods.sanitize = function () {
