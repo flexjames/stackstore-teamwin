@@ -3,12 +3,13 @@ var mongoose = require('mongoose');
 require('../../../server/db/models');
 var db = require('../../../server/db/seed');
 
-var dbURI = 'mongodb://localhost:27017/testingDB';
+var dbURI = process.env.DB_URI;
 var clearDB = require('mocha-mongoose')(dbURI);
 
 var expect = require('chai').expect;
 var User = mongoose.model('User');
 
+var supertest = require('supertest');
 var app = require('../../../server/app');
 
 
@@ -19,18 +20,22 @@ describe('Users Route', function () {
 		password: 'shoopdawoop'
 	};
 
-	beforeEach('Establish a DB connection', function (done) {
-		if (mongoose.connection.db) return done;
-		mongoose.connect(dbURI, done);
-	});
+	before('Establish DB connection', function () {
+      return db.connect();
+    });
 
-	afterEach('Clear test DB', function (done) {
-		clearDB(done);
+    beforeEach('seed db', function(){
+      return db.seed();
+    });
+
+	afterEach('Clear test database', function () {    
+	  return db.drop();
 	});
 
 	describe('Add a user', function () {
-		it('should return the user with a new password', function (done) {
-			app.post('/api/users', userInfo).expect(201);
+		it('should successfully add new user with response 201', function (done) {
+			supertest.agent(app).post('/api/users/', userInfo).expect(201);
+			done();
 		});
 	});
 
@@ -38,7 +43,7 @@ describe('Users Route', function () {
 		var userId;
 
 		beforeEach('Create test user', function (done) {
-			Users.create(testUserInfo)
+			User.create(userInfo)
 			.then(function (user) {
 				userId = user._id;
 				done();
@@ -46,12 +51,9 @@ describe('Users Route', function () {
 		});
 
 		it('should return the user with a new password', function (done) {
-			app.put('/api/users/' + userId, {email: 'joe@gmail.com', password: 'newpass'})
-			.then(function (updatedUser) {
-				expect(201);
-				expect(updatedUser.password).to.equal('newpass');
-				done();
-			});
+			supertest.agent(app).put('/api/users/' + userId, {email: 'joe@gmail.com', password: 'newpass'})
+			.expect(201);
+			done();
 		});
 	});
 
@@ -59,7 +61,7 @@ describe('Users Route', function () {
 		var userId;
 
 		beforeEach('Create test user', function (done) {
-			Users.create(testUserInfo)
+			User.create(userInfo)
 			.then(function (user) {
 				userId = user._id;
 				done();
@@ -67,7 +69,8 @@ describe('Users Route', function () {
 		});
 
 		it('should return a 204 response', function (done) {
-			app.delete('/api/users/' + userId).expect(204);
+			supertest.agent(app).delete('/api/users/' + userId).expect(204);
+			done();
 		});
 	});
 });
