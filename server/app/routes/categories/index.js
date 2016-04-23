@@ -23,37 +23,40 @@ router.get('/', function(req, res, next) {
     .then(null, next);
 });
 
-// //gets all the products with given category
-// router.get('/:id', function(req, res) {
-//   Product.find({ category: { $in: [req.params.id] } }).exec()
-//     .then(function(products) {
-//       res.json(products);
-//     })
-//     .then(null, next);
-// });
+//gets all the products with given category
+router.get('/:id', function(req, res, next) {
+  Product.find({ category: { $in: [req.params.id] } }).exec()
+    .then(function(products) {
+      res.json(products);
+    })
+    .then(null, next);
+});
 
 
-// router.delete('/:id', function(req, res) {
-//   //removes category from model
-//   Category.remove({ _id: req.params.id })
-//     .then(function() {
-//       //gets products with category
-//       return Product.find({ category: { $in: [req.params.id] } }).exec();
-//     })
-//     .then(function(products) {
-//       //converts matching products to an iterable promise
-//       return Promise.all(products);
-//     })
-//     .then(function(product){
-//     	//removes category from each product's array and saves 
-//     	_.pull(product.category, req.params.id);
-//     	product.save();
-//     })
-//     .then(null, next);
-// });
+router.delete('/:id', function(req, res, next) {
+  //removes category from model
+  Category.remove({ _id: req.params.id })
+    .then(function() {
+      //gets products with category
+      return Product.find({ category: { $in: [req.params.id] } }).exec();
+    })
+    .then(function(products) {
+      //converts matching products to an iterable promise
+      return Promise.all(products);
+    })
+    .then(function(product){
+    	//removes category from each product's array and saves 
+    	_.pull(product.category, req.params.id);
+    	product.save();
+    })
+    .then(null, next);
+});
 
-// //adds new category to model
-// router.put('/:name', function(req, res) {
-//   Category.create({ name: req.params.name })
-//     .then(null, next);
-// });
+//adds new category to model
+router.put('/:name', function(req, res, next) {
+  Category.create({ name: req.params.name })
+    .then(function(cat){
+      res.json(cat);
+    })
+    .then(null, next);
+});
