@@ -7,9 +7,11 @@ router.param('id', function (req, res, next, id) {
 	mongoose.model('User').findById(id)
 	.exec()
 	.then(function (user) {
-		if (!user)
+		if (!user) {
 			res.send(404);
-
+			next();
+		}
+		
 		req.requestedUser = user;
 		next();
 	})
