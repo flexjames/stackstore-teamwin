@@ -44,7 +44,9 @@ orderSchema.methods.addItem = function(product, orderDetails){
 
 //remove item from order
 orderSchema.methods.removeItem = function(product){
-  var item = this.items.filter(item=>item.product === product._id)[0];
+  var item = this.items.filter(function(item){
+    return item.product === product._id;
+  })[0];
   this.items.remove(item);
   return this.save();
 };
