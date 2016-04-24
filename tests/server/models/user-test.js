@@ -4,6 +4,7 @@ var clearDB = require('mocha-mongoose')(dbURI);
 var sinon = require('sinon');
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
+var db = require('../../../server/db/seed');
 
 // Require in all models.
 require('../../../server/db/models');
@@ -12,13 +13,15 @@ var User = mongoose.model('User');
 
 describe('User model', function () {
 
-    beforeEach('Establish DB connection', function (done) {
-        if (mongoose.connection.db) return done();
-        mongoose.connect(dbURI, done);
+    beforeEach('Establish DB connection', function () {
+        // if (mongoose.connection.db) return done();
+        // mongoose.connect(dbURI, done);
+        return db.connect();
     });
 
-    afterEach('Clear test database', function (done) {
-        clearDB(done);
+    afterEach('Clear test database', function () {
+        //clearDB(done);
+        return db.drop();
     });
 
     it('should exist', function () {
