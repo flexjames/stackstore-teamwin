@@ -46,9 +46,9 @@ router.put('/:id', function(req, res, next){
 	.then(function(product){
 		var fields = Object.keys(req.body);
 
-		fields.forEach(field){
+		fields.forEach(function(field){
 			product[field] = req.body[field];
-		};
+		});
 
 		product.save()
 		.then(function(product){
