@@ -9,24 +9,22 @@ var categorySchema = mongoose.Schema({
   description: String
 });
 
-// categorySchema.pre('remove', function(next){
-//   var instance = this;
-//   mongoose.model("Product").find({category: {$in: [ instance._id]}})
-//   .then(function(products){
-//     // Promise.map(products, function(product){
-//     //   product.category.remove(instance._id);
-//     //   return product.save();
-//     // })
-//     console.log(products);
-//     if (!products.length)
-//       return next();
-//     products[0].category.remove(instance._id);
-//     products[0].save()
-//     .then(function(data){
-//       next();
-//     }, next);
-//   });
-// });
+//pre-remove hook to delete all references to the category being removed
+categorySchema.pre('remove', function(next){
+  var instance = this;
+  mongoose.model("Product").findByCategory(instance)
+  .then(function(products){
+    if (!products.length)
+      return next();
+    Promise.map(products, function(product){
+      product.category.remove(instance._id);
+      return product.save();
+    })
+    .then(function(){
+      next();
+    });
+  });
+});
 
 
 var productSchema = mongoose.Schema({
