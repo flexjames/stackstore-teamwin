@@ -6,38 +6,34 @@ var Products = require('mongoose').model('Product');
 
 //get all products
 router.get('/', function(req, res, next){
-	Products.find({}).populate('reviews')
+	Products.find()
 	.then(function(products){
 		res.json(products);
-	})
-	.then(null, next);
+	}, next);
 });
 
 //get one product
 router.get('/:id', function(req, res, next){
-	Products.findOne({_id: req.params.id}).populate('reviews')
+	Products.findOne({_id: req.params.id})
 	.then(function(product){
 		res.json(product);
-	})
-	.then(null, next);
+	},next);
 });
 
 //get by category
 router.get('/:category', function(req, res, next){
-	Products.findOne({cateogry: req.params.category}).populate('reviews')
+	Products.findOne({category: req.params.category}) //TO DO: refactor to use model method, look up category by name
 	.then(function(products){
 		res.json(products);
-	})
-	.then(null, next);
+	}, next);
 });
 
 //add a new product
 router.post('/', function(req, res, next){
 	Products.create(req.body)
 	.then(function(product){
-		res.json(product)
-	})
-	.then(null, next);
+		res.json(product);
+	}, next);
 });
 
 //edit a product
@@ -53,10 +49,9 @@ router.put('/:id', function(req, res, next){
 		product.save()
 		.then(function(product){
 			res.json(product);
-		})
-	})
-	.then(null, next);
-})
+		});
+	}, next);
+});
 
 //delete a product
 router.delete('/:id', function(req, res, next){
