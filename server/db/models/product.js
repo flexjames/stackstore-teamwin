@@ -12,7 +12,7 @@ var categorySchema = mongoose.Schema({
 //pre-remove hook to delete all references to the category being removed
 categorySchema.pre('remove', function(next){
   var instance = this;
-  mongoose.model("Product").findByCategory(instance)
+  mongoose.model("Product").findByCategory(instance.name)
   .then(function(products){
     if (!products.length)
       return next();
@@ -41,8 +41,15 @@ var productSchema = mongoose.Schema({
 });
 
 //filter products by Category
-productSchema.statics.findByCategory = function(category){
-  return this.find({category: {$in: [ category._id]}});
+productSchema.statics.findByCategory = function(name){
+  var instance = this;
+  return mongoose.model('Category').findOne({name: name})
+  .then(function(category){
+    if (!category)
+      return Promise.resolve([]);
+    return instance.find({category: {$in: [ category._id]}});
+  });
+
 };
 
 //assigns review to product
@@ -56,9 +63,16 @@ productSchema.methods.addReview = function(reviewData, userId){
 
 };
 //assigns category to product
-productSchema.methods.applyCategory = function(category){
-    this.category.push(category._id);
-    return this.save();
+productSchema.methods.applyCategory = function(name){
+  var instance = this;
+  return mongoose.model('Category').findOne({name: name})
+    .then(function(category){
+      if (!category)
+        return Promise.reject('No such category');
+      instance.category.push(category._id);
+      return instance.save();
+    });
+
 };
 
 

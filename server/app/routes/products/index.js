@@ -22,7 +22,7 @@ router.get('/:id', function(req, res, next){
 
 //get by category
 router.get('/:category', function(req, res, next){
-	Products.findByCategory(req.params.category)
+	Products.getByCategory(req.params.category) //look up category by name
 	.then(function(products){
 		res.json(products);
 	}, next);
