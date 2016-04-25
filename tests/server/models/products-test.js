@@ -45,7 +45,7 @@ describe('Products', function(){
             Category.create({name: 'ho hum', description: 'blah blah'}))
           .spread(function(cat1, cat2){
             _cat1 = cat1;
-            product.applyCategory(cat1)
+            product.applyCategory(cat1.name)
             .then(function(){
               _product = product;
               done();
@@ -73,15 +73,19 @@ describe('Products', function(){
       it('should assign categories', function(){
           expect(_product.category.length).to.equal(1);
       });
-      it('should get products by category', function(){
-          return Product.findOne().then(function(product){
-            product.applyCategory(_cat1).then(function(product){
-              Product.findByCategory(_cat1).then(function(products){
-                expect(products.length).to.equal(1);
-              });
-            });
-          });
+      it('should get products by category', function(done){
+          Product.findOne().then(function(product){
+            return product.applyCategory(_cat1.name);
+          })
+          .then(function(product){
+            return Product.findByCategory(_cat1.name);
+          })
+          .then(function(products){
+              expect(products.length).to.equal(1);
+              done();
+
         });
+      });
       it('should delete all references when category is deleted', function(done){
         _cat1.remove().then(function(){
           Product.findOne().then(function(product){
