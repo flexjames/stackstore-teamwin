@@ -59,8 +59,7 @@ describe('Orders Route', function() {
     clearDB(done);
   });
 
-  // Adding an item creates order in memory
-  describe('POST /api/orders/addItem', function(){
+  describe('POST /api/orders/addItem', function() {
     var guestAgent;
 
     beforeEach('Create guest agent', function() {
@@ -68,10 +67,60 @@ describe('Orders Route', function() {
     });
 
 
-    it('should get a 200 response', function(done) {
+    it('should get a 200 response and the item should be added to the order', function(done) {
       guestAgent.post('/api/orders/addItem', foo)
-        .expect(200);
-        done();
+        .expect(200)
+        .end(function(err, response) {
+          if (err) return done(err);
+          expect(response.body.items.length).to.equal(1);
+          done();
+        });
+
+    });
+  });
+
+  describe('POST /api/orders/removeItem', function() {
+    var guestAgent;
+
+    beforeEach('Create guest agent', function() {
+      guestAgent = supertest.agent(app);
+    });
+
+
+    it('should get a 200 response and the item should be removed from the order', function(done) {
+      guestAgent.post('/api/orders/addItem', foo)
+        .end(function() {
+          guestAgent.post('/api/orders/removeItem', foo)
+            .expect(200)
+            .end(function(err, response) {
+              if (err) return done(err);
+              expect(response.body.items.length).to.equal(0);
+              done();
+            });
+        });
+    });
+
+  });
+
+  describe('POST /api/orders/commit', function() {
+    var guestAgent;
+
+    beforeEach('Create guest agent', function() {
+      guestAgent = supertest.agent(app);
+    });
+
+
+    it('should get a 200 response and the order\'s status should be \'placed\'', function(done) {
+      guestAgent.post('/api/orders/addItem', foo)
+        .end(function() {
+          guestAgent.post('/api/orders/commit', foo)
+            .expect(200)
+            .end(function(err, response) {
+              if (err) return done(err);
+              expect(response.body.status).to.equal('placed');
+              done();
+            });
+        });
     });
 
   });
