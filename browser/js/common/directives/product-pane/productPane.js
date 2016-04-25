@@ -3,6 +3,6 @@ app.directive('productPane', function(){
     scope:{
       product: '='
     },
-    templateUrl: 'js/common/directives/navbar/navbar.html'
+    templateUrl: 'js/common/directives/product-pane/product-pane.html'
   };
 });
