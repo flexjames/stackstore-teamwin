@@ -23,35 +23,25 @@ router.get('/', function(req, res, next) {
     .then(null, next);
 });
 
+//OM: this functionality is exposed in the Products route
 //gets all the products with given category
 router.get('/:id', function(req, res, next) {
   Product.find({ category: { $in: [req.params.id] } }).exec()
     .then(function(products) {
       res.json(products);
-    })
-    .then(null, next);
+    }, next);
 });
 
-
+//OM: now handled by Category pre-remove hook
 router.delete('/:id', function(req, res, next) {
   //removes category from model
   Category.remove({ _id: req.params.id })
     .then(function() {
-      //gets products with category
-      return Product.find({ category: { $in: [req.params.id] } }).exec();
-    })
-    .then(function(products) {
-      //converts matching products to an iterable promise
-      return Promise.all(products);
-    })
-    .then(function(product){
-    	//removes category from each product's array and saves 
-    	_.pull(product.category, req.params.id);
-    	product.save();
-    })
-    .then(null, next);
-});
+      res.sendStatus(204);
+    }, next);
+  });
 
+//OM: there's also an attribute for description
 //adds new category to model
 router.put('/:name', function(req, res, next) {
   Category.create({ name: req.params.name })
