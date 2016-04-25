@@ -21,8 +21,8 @@ router.get('/:id', function(req, res, next){
 });
 
 //get by category
-router.get('/:category', function(req, res, next){
-	Products.findOne({category: req.params.category}) //TO DO: refactor to use model method, look up category by name
+router.get('/category', function(req, res, next){
+	Products.findByCategory({category: req.body.category}) 
 	.then(function(products){
 		res.json(products);
 	}, next);
