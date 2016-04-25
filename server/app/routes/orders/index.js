@@ -16,19 +16,19 @@ router.post('/addItem', function(req, res, next) {
   .then(null, next);
 });
 
-router.post('/removeItem', function(req, res, next) {
-  req.session.order.removeItem(req.body)
-  .then(function(){
-  	res.send(req.session.order);
-  })
-  .then(null, next);
-});
+// router.post('/removeItem', function(req, res, next) {
+//   req.session.order.removeItem(req.body)
+//   .then(function(){
+//   	res.send(req.session.order);
+//   })
+//   .then(null, next);
+// });
 
-router.post('/commit', function(req, res, next) {
-  req.session.order.status = 'pending';
-  req.session.order.commit()
-  .then(function(){
-  	res.send(req.session.order);
-  })
-  .then(null, next);
-});
+// router.post('/commit', function(req, res, next) {
+//   req.session.order.status = 'pending';
+//   req.session.order.commit()
+//   .then(function(){
+//   	res.send(req.session.order);
+//   })
+//   .then(null, next);
+// });

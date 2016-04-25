@@ -87,7 +87,7 @@ describe('Orders Route', function() {
     });
 
 
-    it('should get a 200 response and the item should be removed from the order', function(done) {
+    xit('should get a 200 response and the item should be removed from the order', function(done) {
       guestAgent.post('/api/orders/addItem', foo)
         .end(function() {
           guestAgent.post('/api/orders/removeItem', foo)
@@ -110,7 +110,7 @@ describe('Orders Route', function() {
     });
 
 
-    it('should get a 200 response and the order\'s status should be \'placed\'', function(done) {
+    xit('should get a 200 response and the order\'s status should be \'placed\'', function(done) {
       guestAgent.post('/api/orders/addItem', foo)
         .end(function() {
           guestAgent.post('/api/orders/commit', foo)
