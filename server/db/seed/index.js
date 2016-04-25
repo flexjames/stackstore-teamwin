@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
   categories = require('./categories'),
   lightsabers = require('./lightsabers'),
   blasters = require('./blasters'),
+  users = require('./users'),
   Promise = require('bluebird'), conn;
 
   var Product = mongoose.model('Product');
@@ -25,7 +26,7 @@ connect().then(function(){
   return categories();
 })
 .then(function(cats){
-  return Promise.join(lightsabers(cats), blasters(cats));
+  return Promise.join(users(), lightsabers(cats), blasters(cats));
 })
 .then(function(){
   console.log('done seeding');

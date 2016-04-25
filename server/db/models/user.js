@@ -6,12 +6,10 @@ var Promise = require('bluebird');
 
 var schema = new mongoose.Schema({
     email: {
-        type: String,
-        required: true
+        type: String
     },
     password: {
-        type: String,
-        required: true
+        type: String
     },
     salt: {
         type: String
@@ -36,7 +34,8 @@ var schema = new mongoose.Schema({
     passwordReset: {
       type: Boolean,
       default: false
-    }
+    },
+    imageUrl: String
 });
 //Adds a user to an order, indicating the order is ready to be placed
 schema.methods.addOrder = function(order){

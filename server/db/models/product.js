@@ -6,7 +6,8 @@ var categorySchema = mongoose.Schema({
     type:String,
     unique: true
   },
-  description: String
+  description: String,
+  imageUrl: String
 });
 
 //pre-remove hook to delete all references to the category being removed
