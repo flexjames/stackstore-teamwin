@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 //this  will be the /api/products/ route
 var router = require('express').Router();
