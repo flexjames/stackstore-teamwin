@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 //this  will be the /api/products/ route
 var router = require('express').Router();
@@ -21,8 +21,8 @@ router.get('/:id', function(req, res, next){
 });
 
 //get by category
-router.get('/category', function(req, res, next){
-	Products.findByCategory({category: req.body.category}) 
+router.get('/:category', function(req, res, next){
+	Products.findByCategory(req.params.category)
 	.then(function(products){
 		res.json(products);
 	}, next);

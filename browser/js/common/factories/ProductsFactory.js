@@ -16,7 +16,7 @@ app.factory('ProductsFactory', function($http){
 	};
 
 	ProductsFactory.fetchByCategory = function(category){
-		return $http.get('/products/category', category)
+		return $http.get('/products/' + category)
 		.then(function(respose){
 			return response.data;
 		});
