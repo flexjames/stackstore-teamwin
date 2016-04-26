@@ -1,6 +1,7 @@
 'use strict';
 var path = require('path');
 var express = require('express');
+var session = require('express-session');
 var app = express();
 module.exports = app;
 
@@ -12,6 +13,8 @@ require('./configure')(app);
 // /api so they are isolated from our GET /* wildcard.
 app.use('/api', require('./routes'));
 
+// Session middleware
+app.use(session({secret: 'jonahiscool'}));
 
 /*
  This middleware will catch any URLs resembling a file extension
