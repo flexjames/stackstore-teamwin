@@ -6,28 +6,42 @@ var mongoose = require('mongoose');
 var Order = mongoose.model('Order');
 
 router.post('/addItem', function(req, res, next) {
-  if (!req.session.order) {
-    req.session.order = new Order();
-  }
-  req.session.order.addItem(req.body)
-  .then(function(){
-  	res.send(req.session.order);
-  })
-  .then(null, next);
+  var p = new Promise(function(resolve, reject) {
+    if (req.session.order) {
+      Order.findById(req.session.order)
+        .then(resolve);
+    } else {
+      var o = new Order();
+      req.session.order = o._id;
+      resolve(o);
+    }
+
+  });
+
+  p.then(function(order) {
+      return order.addItem(req.body);
+    })
+    .then(function(order) {
+      res.send(order);
+    });
 });
 
 router.post('/removeItem', function(req, res) {
-  req.session.order.items = req.session.order.items.filter(function(item){
-    return item.product != req.body._id;
-  });
-  res.send(req.session.order);
+  Order.findById(req.session.order)
+    .then(function(order) {
+      return order.removeItem(req.body);
+    })
+    .then(function(order) {
+      res.send(order);
+    })
 });
 
-// router.post('/commit', function(req, res, next) {
-//   req.session.order.status = 'pending';
-//   req.session.order.commit()
-//   .then(function(order){
-//   	res.send(order);
-//   })
-//   .then(null, next);
-// });
+router.post('/commit', function(req, res, next) {
+  Order.findById(req.session.order)
+    .then(function(order){
+      return order.commit();
+    })
+    .then(function(order) {
+      res.send(order);
+    }, next);
+});

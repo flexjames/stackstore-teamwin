@@ -4,6 +4,7 @@ require('../../../server/db/models');
 var User = mongoose.model('User');
 var Category = mongoose.model('Category');
 var Product = mongoose.model('Product');
+var Order = mongoose.model('Order');
 
 var expect = require('chai').expect;
 
@@ -72,8 +73,11 @@ describe('Orders Route', function() {
         .expect(200)
         .end(function(err, response) {
           if (err) return done(err);
-          expect(response.body.items.length).to.equal(1);
-          done();
+          Order.findById(response.body)
+            .then(function(order) {
+              expect(order.items.length).to.equal(1);
+              done();
+            });
         });
 
     });
@@ -94,8 +98,11 @@ describe('Orders Route', function() {
             .expect(200)
             .end(function(err, response) {
               if (err) return done(err);
-              expect(response.body.items.length).to.equal(0);
-              done();
+              Order.findById(response.body)
+                .then(function(order) {
+                  expect(order.items.length).to.equal(0);
+                  done();
+                });
             });
         });
     });
@@ -110,15 +117,18 @@ describe('Orders Route', function() {
     });
 
 
-    xit('should get a 200 response and the order\'s status should be \'placed\'', function(done) {
+    it('should get a 200 response and the order\'s status should be \'placed\'', function(done) {
       guestAgent.post('/api/orders/addItem', foo)
         .end(function() {
           guestAgent.post('/api/orders/commit')
             .expect(200)
             .end(function(err, response) {
               if (err) return done(err);
-              expect(response.body.status).to.equal('placed');
-              done();
+              Order.findById(response.body)
+                .then(function(order) {
+                  expect(order.status).to.equal('placed');
+                  done();
+                });
             });
         });
     });
