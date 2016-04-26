@@ -2,7 +2,7 @@ var categories = require('./categories'),
   Product = require('mongoose').model('Product');
 
 function seed(cat){
-    var root = '/images/products/blasters';
+    var root = '/images/products/blasters/';
     var data = [
       {
         name: 'Standard Blaster',
@@ -10,7 +10,8 @@ function seed(cat){
         price: 99,
         quantity: 20,
         category: [cat.blasters],
-        imageUrl: [root + 'pistol.jpg' ]
+        imageUrl: [root + 'pistol.jpg' ],
+        stars: 3
       },
       {
         name: 'Blaster Rifle',
@@ -18,7 +19,8 @@ function seed(cat){
         price: 225,
         quantity: 15,
         category: [cat.blasters],
-        imageUrl: [root + 'blaster_rifle.jpg']
+        imageUrl: [root + 'blaster_rifle.jpg'],
+        stars: 2
       },
       {
         name: 'D-17 Blaster Pistol',
@@ -26,7 +28,8 @@ function seed(cat){
         price: 125,
         quantity: 10,
         category: [cat.blasters],
-        imageUrl: [root + 'dh-17.jpg']
+        imageUrl: [root + 'dh-17.jpg'],
+        stars: 4
       }
 
     ];

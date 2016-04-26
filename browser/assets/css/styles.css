@@ -68,7 +68,7 @@ div#product-review{
 
 div#product-pane{
   width:225px;
-  margin:20px;
+  margin:10px;
   display:inline-block;
   overflow:hidden;
 }
@@ -85,4 +85,3 @@ div#category-panel.col-md-12{
   justify-content:center;
   flex-wrap:nowrap;
 }
-

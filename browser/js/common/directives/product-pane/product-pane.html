@@ -6,9 +6,6 @@
           </div>
     </div>
     <p>{{product.name}}</p><span>
-      <i class="material-icons">star</i>
-      <i class="material-icons">star</i>
-      <i class="material-icons">star</i>
-      <i class="material-icons">star</i></span>
-    <p class="bg-danger">Our price: {{product.price}}</p>
+      <i class="material-icons" ng-repeat="i in getStars(product) track by $index">star</i></span>
+    <p class="bg-danger">Our price: {{product.price | currency}}</p>
 </div>

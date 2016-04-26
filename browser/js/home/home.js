@@ -2,17 +2,19 @@ app.config(function ($stateProvider) {
     $stateProvider.state('home', {
         url: '/',
         templateUrl: 'js/home/home.html',
-        controller: function(ProductsFactory, $scope){
-          ProductsFactory.fetchAll().then(function(products){
-            console.log(products);
-            $scope.products = products;
-          });
+        controller: function(products, categories, $scope){
+          $scope.products = products;
+          $scope.categories = categories;
+          console.log(products);
 
+        },
+        resolve: {
+          products: function(ProductsFactory){
+            return ProductsFactory.fetchAll();
+          },
+          categories: function(CategoryFactory){
+            return CategoryFactory.fetchAll();
+          }
         }
-        // resolve: {
-        //   products: function(ProductsFactory){
-        //     return ProductsFactory.fetchAll();
-        //   }
-        // }
     });
 });

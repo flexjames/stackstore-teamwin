@@ -22,8 +22,8 @@
             <div class="col-md-12">
                 <h4 class="text-center bg-primary">Shop by Category</h4></div>
             <div class="col-md-12" id="category-panel">
-                <div id="category-pane">
-                  <img class="img-thumbnail" ng-repeat="category in categories" src="{{category.imageUrl}}">
+                <div id="category-pane" ng-repeat="category in categories">
+                  <img class="img-thumbnail" src="{{category.imageUrl}}">
                     <h5 class="text-center text-primary">{{category.name}} </h5>
                 </div>
 
