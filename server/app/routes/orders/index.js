@@ -23,11 +23,11 @@ router.post('/removeItem', function(req, res) {
   res.send(req.session.order);
 });
 
-router.post('/commit', function(req, res, next) {
-  req.session.order.status = 'pending';
-  req.session.order.commit()
-  .then(function(order){
-  	res.send(order);
-  })
-  .then(null, next);
-});
+// router.post('/commit', function(req, res, next) {
+//   req.session.order.status = 'pending';
+//   req.session.order.commit()
+//   .then(function(order){
+//   	res.send(order);
+//   })
+//   .then(null, next);
+// });
