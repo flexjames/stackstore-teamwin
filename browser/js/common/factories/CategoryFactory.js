@@ -16,7 +16,7 @@ app.factory('CategoryFactory', function($http){
     delete: function(id){
     	return $http.delete('/api/categories/' + id)
     },
-    update: function(name){
+    create: function(name){
     	return $http.put('/api/categories/' + name)
     	.then(function(res){
     		return res.data;
