@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
 
 function connect(){
   if (!conn){
-    conn = mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/stackstore', function(err){
+    conn = mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/stackstore', function(err){
       if (err)
         console.log(err);
     });
