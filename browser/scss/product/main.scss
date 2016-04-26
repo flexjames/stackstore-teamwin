@@ -1,3 +1,27 @@
 #product {
-	
+	padding-bottom: 25px;
+
+	div .form-inline {
+		padding-top: 25px;
+	}
+
+	#priceLabel {
+		font-size: 20px;
+		padding-top: 25px;
+	}
+
+	#availabilityLabel {
+		font-size: 20px;
+		color: green;
+	}
+
+	#remainingStockLabel {
+		padding-bottom: 5px;
+		color: orange;
+	}
+
+	.col-xs-12 {
+		height: 1px;
+		background-color: gray;
+	}
 }
