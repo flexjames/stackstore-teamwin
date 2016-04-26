@@ -38,8 +38,7 @@ var productSchema = mongoose.Schema({
        //movie names?
        type: mongoose.Schema.Types.ObjectId
    }],
-   reviews: [mongoose.model('Review').schema],
-   stars: Number
+   reviews: [mongoose.model('Review').schema]
 });
 
 //filter products by Category

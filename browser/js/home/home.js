@@ -8,9 +8,20 @@ app.config(function ($stateProvider) {
 
 app.controller('HomeCtrl', function ($scope, $state) {
 
-    //Will take in product id as parameter
-    $scope.showProduct = function () {
-        console.log('Show product');
-        $state.go('product-detail', {productId: '12345'});
-    };
+        controller: function(products, categories, $scope){
+          $scope.products = products;
+          $scope.categories = categories;
+          console.log(products);
+
+        },
+        resolve: {
+          products: function(ProductsFactory){
+            return ProductsFactory.fetchAll();
+          },
+          categories: function(CategoryFactory){
+            return CategoryFactory.fetchAll();
+          }
+        }
+    });
 });
+
