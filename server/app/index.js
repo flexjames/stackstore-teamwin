@@ -1,7 +1,6 @@
 'use strict';
 var path = require('path');
 var express = require('express');
-var session = require('express-session');
 var app = express();
 module.exports = app;
 
@@ -9,12 +8,18 @@ module.exports = app;
 // function located at server/app/configure/index.js
 require('./configure')(app);
 
+//OM: Session is already created in config step
+// // Session middleware
+// app.use(session({
+//   secret: 'jonahiscool',
+//   resave: true,
+//   saveUninitialized: true
+// }));
 // Routes that will be accessed via AJAX should be prepended with
 // /api so they are isolated from our GET /* wildcard.
 app.use('/api', require('./routes'));
 
-// Session middleware
-app.use(session({secret: 'jonahiscool'}));
+
 
 /*
  This middleware will catch any URLs resembling a file extension
