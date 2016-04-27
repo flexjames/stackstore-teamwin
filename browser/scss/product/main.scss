@@ -19,9 +19,16 @@
 		padding-bottom: 5px;
 		color: orange;
 	}
+}
 
-	.col-xs-12 {
-		height: 1px;
-		background-color: gray;
+#divider {
+	background-color: gray;
+	height: 1px;
+}
+#reviews {
+	padding-top: 25px; 
+
+	h3 {
+		padding-bottom: 15px;
 	}
 }
