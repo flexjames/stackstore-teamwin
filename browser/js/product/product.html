@@ -10,28 +10,25 @@
 			<img class="img-thumbnail" src="{{product.imageUrl[0]}}">
 		</div>
 		<div class="col-xs-4">
-			<p id="priceLabel">Price: ${{product.price}}.00</p>
+			<p id="priceLabel">Price: {{product.price | currency}}</p>
 			<p id="availabilityLabel">Currently Available.</p>
-			<p id="remainingStockLabel">{{product.quantity.toString()}} left in stock.</p>
+			<p id="remainingStockLabel">{{product.quantity}} left in stock.</p>
 			<p>{{product.description}}</p>
 		</div>
 		<div class="col-xs-4">
-			<form class="form-inline">
-				<div class="form-group col-xs-8 col-xs-offset-2">
-					<p class="col-xs-8">Quantity: </p>
-					<select class="col-xs-4" class="form-control">
+					<span>Quantity: </span>
+					<input type="text" ng-model="quantity" />
+					<!-- <select class="col-xs-4" class="form-control">
 				    	<option ng-repeat="i in getQuantity() track by $index">{{i}}</option>
-				    </select>
-				</div>
-			</form>
-			<button type="button" class="btn btn-success btn-lg btn-block">Add to Cart</button>
+				    </select> -->
+			<button type="button" class="btn btn-success btn-lg btn-block" ng-click="addToCart(product)">Add to Cart</button>
 		</div>
 	</div>
 	<div id="divider" class="col-xs-12"></div>
 	<div id="reviews" class="row">
 		<h3>Customer Reviews</h3>
 		<div class="list-group">
-			<!-- Will use ng-repeat on product's customer reviews array -->	
+			<!-- Will use ng-repeat on product's customer reviews array -->
 			<div class="list-group-item">
 				<h4 class="list-group-item-heading">Review Title 1</h4>
 				<h5 class="list-group-item-heading">By: User 1</h5>
