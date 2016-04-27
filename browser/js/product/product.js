@@ -2,8 +2,10 @@ app.config(function ($stateProvider) {
     $stateProvider.state('product-detail', {
         url: '/product/:productId',
         templateUrl: 'js/product/product.html',
-        controller: function ($scope, product) {
+        controller: function ($scope, product, CartFactory) {
             $scope.product = product;
+            console.log(product);
+            $scope.quantity = 1;
 
             $scope.getQuantity = function () {
                 var total;
@@ -11,7 +13,7 @@ app.config(function ($stateProvider) {
                     total = product.quantity;
                 else
                     total = 10;
-                
+
                 var quantityArray = [];
 
                 for (var i = 1; i <= total; i++) {
@@ -19,11 +21,16 @@ app.config(function ($stateProvider) {
                 }
                 return quantityArray;
             };
-            
+
 
             $scope.getStars = function(product){
                 return new Array(product.stars);
-            }
+            };
+
+            $scope.addToCart = function(product, quantity){
+              CartFactory.addToCart(product, Number($scope.quantity));
+              //TO DO: show a toast when items added to cart
+            };
         },
         resolve: {
             product: function (ProductsFactory, $stateParams) {
