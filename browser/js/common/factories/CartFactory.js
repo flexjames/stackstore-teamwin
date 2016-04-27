@@ -41,7 +41,6 @@ app.factory('CartFactory', function($http, $q){
     getQuantity: function(){
       if (checkLocal()){
         var cart = JSON.parse(sessionStorage.cart);
-        console.log('unique', cart.items.length);
         return cart.items.reduce(function(acc, it){
           return acc + it.quantity;
         }, 0);

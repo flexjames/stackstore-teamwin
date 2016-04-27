@@ -1,24 +1,35 @@
-app.config(function ($stateProvider) {
+app.config(function($stateProvider) {
     $stateProvider.state('home', {
         url: '/',
         templateUrl: 'js/home/home.html',
         controller: function($scope, $state, products, categories) {
-		 	$scope.products = products;
-			$scope.categories = categories;
-			console.log(products);
+            var _products = products;
+            $scope.products = products;
+            $scope.categories = categories;
 
-			$scope.showProduct = function (productId) {
-		        console.log('Show product');
-		        $state.go('product-detail', {productId: productId});
-		    };
-		},
+            $scope.filterByCategory = function(category) {
+                if (category._id !== $scope.activeCat) {
+                    $scope.products = _products.filter(function(it) {
+                        return it.category.indexOf(category._id) > -1;
+                    });
+                    $scope.activeCat = category._id;
+                }
+                else {
+                  $scope.activeCat = null;
+                  $scope.products = _products;
+                }
+
+            };
+
+
+        },
         resolve: {
-          products: function(ProductsFactory){
-            return ProductsFactory.fetchAll();
-          },
-          categories: function(CategoryFactory){
-            return CategoryFactory.fetchAll();
-          }
+            products: function(ProductsFactory) {
+                return ProductsFactory.fetchAll();
+            },
+            categories: function(CategoryFactory) {
+                return CategoryFactory.fetchAll();
+            }
         }
     });
 });
