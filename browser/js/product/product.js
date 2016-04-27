@@ -4,6 +4,7 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/product/product.html',
         controller: function ($scope, product, CartFactory) {
             $scope.product = product;
+            console.log(product);
             $scope.quantity = 1;
 
             $scope.getQuantity = function () {
