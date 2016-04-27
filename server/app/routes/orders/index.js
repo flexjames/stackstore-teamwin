@@ -5,6 +5,12 @@ var _ = require('lodash');
 var mongoose = require('mongoose');
 var Order = mongoose.model('Order');
 
+router.get('/', function(req, res,next){
+  //returns a new order
+  var order = new Order();
+  res.json(order);
+});
+
 router.post('/addItem', function(req, res, next) {
   var p = new Promise(function(resolve, reject) {
     if (req.session.order) {
