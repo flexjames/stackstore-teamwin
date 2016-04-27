@@ -37,8 +37,8 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12" id="product-panel">
-        <product-pane ng-repeat="product in products" product="product"></product-pane>
+    <div class="col-md-12">
+        <product-pane ng-repeat="product in products" product="product" ng-click="showProduct(product._id)"></product-pane>
     </div>
   </div>
 
