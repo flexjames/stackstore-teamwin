@@ -1,4 +1,4 @@
-app.factory('CartFactory', function($http, $q){
+app.factory('CartFactory', function($http, $q, Session){
 
   function getCart(){
     return $q(function(resolve, reject){
@@ -7,13 +7,24 @@ app.factory('CartFactory', function($http, $q){
         return resolve(cart);
       }
       return $http.get('/api/orders').then(function(res){
-        setCart(res.data);
-        return resolve(res.data);
+        return setCart(res.data);
+
       });
     });
   }
   function setCart(cart){
     sessionStorage.cart = JSON.stringify(cart);
+    //To DO: if user is logged in, send a request to the api
+      return $q(function(resolve, reject){
+        if (Session.user){
+          return $http.put('/api/orders/' + cart._id, cart );
+        }
+        return resolve(cart);
+      });
+
+
+
+
   }
   function checkLocal(){
     return !!sessionStorage.cart;
@@ -21,7 +32,6 @@ app.factory('CartFactory', function($http, $q){
   return {
     addToCart: function(product, quantity){
         return getCart().then(function(cart){
-          //TO DO: check to see if product is not in cart
           var existingItem = cart.items.filter(function(it){
             return it.product._id === product._id;
           })[0];
@@ -34,16 +44,20 @@ app.factory('CartFactory', function($http, $q){
               price: product.price
             });
           }
-          setCart(cart);
-          return $q.resolve(cart);
+          return setCart(cart).then(function(cart){
+            return cart;
+          });
+
         });
     },
 
     removeFromCart : function(idx){
       return getCart().then(function(cart){
         cart.items.splice(idx,1);
-        setCart(cart);
-        return cart;
+        return setCart(cart).then(function(cart){
+          return cart;
+        });
+
       });
     },
     getQuantity: function(){
@@ -59,12 +73,41 @@ app.factory('CartFactory', function($http, $q){
     setQuantity: function(idx, fn){
       return getCart().then(function(cart){
         cart.items[idx].quantity =  fn(cart.items[idx].quantity);
-        setCart(cart);
-        return cart.items[idx];
+        return setCart(cart).then(function(cart){
+          return cart.items[idx];
+        });
+
       });
     },
     fetchCart: function(){
-      return JSON.parse(sessionStorage.cart);
+      if (checkLocal())
+        return JSON.parse(sessionStorage.cart);
+    },
+    sendCartToApi: function(){ //only used when a user has logged in
+      return getCart().then(function(cart){
+        cart.user = Session.user._id;
+        return setCart(cart).then(function(cart){
+          return $http.post('/api/orders', cart);
+        });
+
+      });
+    },
+    fetchOrders: function(userId){
+      return $http.get('/api/orders/' + userId)
+        .then(function(res){
+          return res.data;
+        });
+    },
+    removeCart: function(){
+      if (checkLocal())
+        delete sessionStorage['cart'];
+    },
+    setCart: function(cart){
+      sessionStorage.cart = JSON.stringify(cart);
+    },
+
+    isCart: function(){
+      return checkLocal();
     }
   };
 });

@@ -48,7 +48,7 @@
         ]);
     });
 
-    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
+    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q, CartFactory) {
 
         function onSuccessfulLogin(response) {
             var data = response.data;
@@ -97,6 +97,7 @@
         this.logout = function () {
             return $http.get('/logout').then(function () {
                 Session.destroy();
+                CartFactory.removeCart();
                 $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
             });
         };

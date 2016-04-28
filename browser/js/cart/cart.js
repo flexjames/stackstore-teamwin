@@ -12,7 +12,7 @@ app.config(function($stateProvider){
         };
 
         $scope.increment = function(idx){
-          CartFactory.setQuantity(idx, function(n){
+          return CartFactory.setQuantity(idx, function(n){
             return n+1;
           })
           .then(function(item){

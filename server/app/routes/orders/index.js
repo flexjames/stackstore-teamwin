@@ -11,6 +11,32 @@ router.get('/', function(req, res,next){
   res.json(order);
 });
 
+router.get('/:userId', function(req,res,next){
+  Order.find({user: req.params.userId, status: 'created' })
+  .then(function(orders){
+    res.json(orders);
+  }, next);
+});
+
+router.put('/:orderId', function(req,res, next){
+  Order.findById(req.params.orderId).then(function(order){
+    if (order){
+      order.items = req.body.items;
+      order.save().then(function(){
+        return res.sendStatus(200);
+      }, next);
+    }
+    next();
+  });
+});
+
+router.post('/', function(req,res,next){
+  //Creates a new order from the recieved data
+  Order.create(req.body).then(function(order){
+    res.sendStatus(201);
+  }, next);
+});
+
 router.post('/addItem', function(req, res, next) {
   var p = new Promise(function(resolve, reject) {
     if (req.session.order) {
