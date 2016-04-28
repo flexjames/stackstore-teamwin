@@ -30,8 +30,70 @@ function seed(cat){
         category: [cat.blasters],
         imageUrl: [root + 'dh-17.jpg'],
         stars: 4
+      },
+      {
+        name: 'A280C Blaster Rifle',
+        description:'A280C is a sturdy and powerful blaster rifle that has a high rate of fire and excellent firepower. Modified from the A280 rifle, it was the favored weapon of Alliance commandos.',
+        price: 250,
+        quantity: 10,
+        category: [cat.blasters],
+        imageUrl: [root + 'A280C_Rifle.jpg'],
+        stars: 4
+      },
+      {
+        name: 'CA-87 Blaster',
+        description:'The CA-87 is a retro-fitted Jawa blaster that is extremely deadly at short range, but near useless at medium and long range.',
+        price: 175,
+        quantity: 6,
+        category: [cat.blasters],
+        imageUrl: [root + 'CA-87_Blaster.jpg'],
+        stars: 4
+      },
+      {
+        name: 'DL-44 Blaster',
+        description:'The DL-44 is one of the most powerful blaster pistols in the galaxy. It delivers massive damage at close range, but overheats quickly.',
+        price: 185,
+        quantity: 3,
+        category: [cat.blasters],
+        imageUrl: [root + 'DL-44_Blaster.png'],
+        stars: 4
+      },
+      {
+        name: 'DLT-19 Blaster Rifle',
+        description:'The DLT-19 is a heavy blaster with an excellent rate of fire that deals heavy damage at long range, capable of pinning down troops and taking out large groups of enemies.',
+        price: 265,
+        quantity: 7,
+        category: [cat.blasters],
+        imageUrl: [root + 'DLT-19_Rifle.jpg'],
+        stars: 4
+      },
+      {
+        name: 'EE-3 Blaster',
+        description:'The EE-3 is an optically fitted Blaster Rifle capable of 3-round burst fire at long ranges.',
+        price: 165,
+        quantity: 6,
+        category: [cat.blasters],
+        imageUrl: [root + 'EE-3_Blaster.jpg'],
+        stars: 4
+      },
+      {
+        name: 'RT-97C Blaster Rifle',
+        description:'The RT-97C is a versatile heavy blaster, fitted with optics to allow use at long range.',
+        price: 225,
+        quantity: 4,
+        category: [cat.blasters],
+        imageUrl: [root + 'RT-97C_Rifle.jpg'],
+        stars: 4
+      },
+       {
+        name: 'SE-14C Blaster',
+        description:'The SE-14C is a blaster pistol that fires 5-round bursts, making it ideal for close-quarter combat.',
+        price: 245,
+        quantity: 8,
+        category: [cat.blasters],
+        imageUrl: [root + 'SE-14C_Blaster.png'],
+        stars: 4
       }
-
     ];
     console.log('seeding blasters...');
     return Product.insertMany(data);
