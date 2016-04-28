@@ -38,6 +38,14 @@ app.factory('CartFactory', function($http, $q){
           return $q.resolve(cart);
         });
     },
+
+    removeFromCart : function(idx){
+      return getCart().then(function(cart){
+        cart.items.splice(idx,1);
+        setCart(cart);
+        return cart;
+      });
+    },
     getQuantity: function(){
       if (checkLocal()){
         var cart = JSON.parse(sessionStorage.cart);
@@ -47,6 +55,16 @@ app.factory('CartFactory', function($http, $q){
 
       }
       return 0;
+    },
+    setQuantity: function(idx, fn){
+      return getCart().then(function(cart){
+        cart.items[idx].quantity =  fn(cart.items[idx].quantity);
+        setCart(cart);
+        return cart.items[idx];
+      });
+    },
+    fetchCart: function(){
+      return JSON.parse(sessionStorage.cart);
     }
   };
 });
