@@ -12,10 +12,14 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, AUTH_EVENTS, 
 
     $scope.$on(AUTH_EVENTS.loginSuccess, function(){
       var user = Session.user;
-      if (CartFactory.isCart()) //If anon user has begun filling cart
-        CartFactory.sendCartToApi(); //TO DO: add merging of carts
+      if (CartFactory.isCart()) {//If anon user has begun filling cart
+        return CartFactory.sendCartToApi().then(function(cart){
+          console.log(cart);
+          CartFactory.setCart(cart);
+        });//TO DO: add merging of carts
+      }
       else if (!CartFactory.isCart() && user){
-        CartFactory.fetchOrders(user._id).then(function(orders){
+        return CartFactory.fetchOrders(user._id).then(function(orders){
           if (orders.length)
             CartFactory.setCart(orders[0]);
         });

@@ -7,19 +7,20 @@ app.factory('CartFactory', function($http, $q, Session){
         return resolve(cart);
       }
       return $http.get('/api/orders').then(function(res){
-        return setCart(res.data);
-
+        resolve(res.data);
       });
     });
   }
   function setCart(cart){
-    sessionStorage.cart = JSON.stringify(cart);
     //To DO: if user is logged in, send a request to the api
       return $q(function(resolve, reject){
+        sessionStorage.cart = JSON.stringify(cart);
         if (Session.user){
-          return $http.put('/api/orders/' + cart._id, cart );
+          return $http.put('/api/orders/' + cart._id, cart ).then(function(res){
+            resolve(res.data);
+          });
         }
-        return resolve(cart);
+        resolve(cart);
       });
 
 
@@ -44,9 +45,7 @@ app.factory('CartFactory', function($http, $q, Session){
               price: product.price
             });
           }
-          return setCart(cart).then(function(cart){
-            return cart;
-          });
+          return setCart(cart);
 
         });
     },
@@ -71,13 +70,11 @@ app.factory('CartFactory', function($http, $q, Session){
       return 0;
     },
     setQuantity: function(idx, fn){
-      return getCart().then(function(cart){
-        cart.items[idx].quantity =  fn(cart.items[idx].quantity);
-        return setCart(cart).then(function(cart){
-          return cart.items[idx];
-        });
-
+        return getCart().then(function(cart){
+          cart.items[idx].quantity =  fn(cart.items[idx].quantity);
+          return setCart(cart);
       });
+
     },
     fetchCart: function(){
       if (checkLocal())
@@ -86,11 +83,9 @@ app.factory('CartFactory', function($http, $q, Session){
     sendCartToApi: function(){ //only used when a user has logged in
       return getCart().then(function(cart){
         cart.user = Session.user._id;
-        return setCart(cart).then(function(cart){
           return $http.post('/api/orders', cart);
         });
 
-      });
     },
     fetchOrders: function(userId){
       return $http.get('/api/orders/' + userId)

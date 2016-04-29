@@ -23,17 +23,18 @@ router.put('/:orderId', function(req,res, next){
     if (order){
       order.items = req.body.items;
       order.save().then(function(){
-        return res.sendStatus(200);
+        res.json(order);
       }, next);
-    }
-    next();
+    } else {
+    res.sendStatus(200);
+  }
   });
 });
 
 router.post('/', function(req,res,next){
   //Creates a new order from the recieved data
   Order.create(req.body).then(function(order){
-    res.sendStatus(201);
+    res.json(order);
   }, next);
 });
 
@@ -65,7 +66,7 @@ router.post('/removeItem', function(req, res) {
     })
     .then(function(order) {
       res.send(order);
-    })
+    });
 });
 
 router.post('/commit', function(req, res, next) {
