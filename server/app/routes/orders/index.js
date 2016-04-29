@@ -11,6 +11,33 @@ router.get('/', function(req, res,next){
   res.json(order);
 });
 
+router.get('/:userId', function(req,res,next){
+  Order.find({user: req.params.userId, status: 'created' })
+  .then(function(orders){
+    res.json(orders);
+  }, next);
+});
+
+router.put('/:orderId', function(req,res, next){
+  Order.findById(req.params.orderId).then(function(order){
+    if (order){
+      order.items = req.body.items;
+      order.save().then(function(){
+        res.json(order);
+      }, next);
+    } else {
+    res.sendStatus(200);
+  }
+  });
+});
+
+router.post('/', function(req,res,next){
+  //Creates a new order from the recieved data
+  Order.create(req.body).then(function(order){
+    res.json(order);
+  }, next);
+});
+
 router.post('/addItem', function(req, res, next) {
   var p = new Promise(function(resolve, reject) {
     if (req.session.order) {
@@ -39,7 +66,7 @@ router.post('/removeItem', function(req, res) {
     })
     .then(function(order) {
       res.send(order);
-    })
+    });
 });
 
 router.post('/commit', function(req, res, next) {

@@ -2,13 +2,13 @@ var mongoose = require('mongoose');
 
 
 var itemSchema = mongoose.Schema({
-    product: { type: mongoose.Schema.Types.ObjectId},
+    product: mongoose.model('Product').schema,
     quantity: Number,
     price: Number
 });
 
 var orderSchema = mongoose.Schema({
-    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    user: {type: mongoose.Schema.Types.ObjectId},
     created: {
         type: Date,
         default: Date.now
