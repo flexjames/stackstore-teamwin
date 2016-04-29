@@ -34,19 +34,19 @@
     </div>
     <div class="col-md-12 col-md-offset-0">
         <h4 class="text-right">Subtotal ({{cart.items.length}} items) : {{subtotal() | currency}}</h4></div>
-    <div class="col-md-12">
+    <div ng-show="cart.items.length" class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Shipping Information</h3></div>
             <div class="panel-body">
                 <form><span>Email </span>
-                    <input class="form-control" type="text"><span>Address </span>
-                    <input class="form-control" type="text">
+                    <input ng-model="shipping.email" class="form-control" type="text"><span>Address </span>
+                    <input ng-model="shipping.address" class="form-control" type="text">
                 </form>
             </div>
         </div>
     </div>
     <div class="col-md-12">
-        <button class="btn btn-warning btn-lg pull-right" type="button">Submit Order</button>
+        <button class="btn btn-warning btn-lg pull-right" ng-show="cart.items.length" ng-click="sendOrder()" type="button">Submit Order</button>
     </div>
 </div>

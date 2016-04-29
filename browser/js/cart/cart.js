@@ -2,8 +2,15 @@ app.config(function($stateProvider){
   $stateProvider.state('cart', {
       url: '/cart',
       templateUrl: '/js/cart/cart.html',
-      controller: function(cart, $scope, CartFactory){
+      controller: function(cart, $scope, CartFactory, $state){
         $scope.cart = cart;
+
+        $scope.sendOrder = function(){
+          return CartFactory.submitCart($scope.shipping).then(function(){
+            CartFactory.removeCart();
+            $state.go('home');
+          });
+        };
 
         $scope.remove = function(idx){
           CartFactory.removeFromCart(idx).then(function(cart){

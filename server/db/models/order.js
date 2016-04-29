@@ -20,7 +20,7 @@ var orderSchema = mongoose.Schema({
     },
     items: [itemSchema],
     address: String,
-    name: String
+    email: String
 
 });
 //Get subtotal for order
