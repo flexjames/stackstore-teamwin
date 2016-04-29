@@ -14,14 +14,18 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, AUTH_EVENTS, 
       var user = Session.user;
       if (CartFactory.isCart()) {//If anon user has begun filling cart
         return CartFactory.sendCartToApi().then(function(cart){
-          console.log(cart);
           CartFactory.setCart(cart);
         });//TO DO: add merging of carts
       }
-      else if (!CartFactory.isCart() && user){
+      else if (!CartFactory.isCart() && user) {
         return CartFactory.fetchOrders(user._id).then(function(orders){
           if (orders.length)
-            CartFactory.setCart(orders[0]);
+            CartFactory.setCart(orders[orders.length -1]);
+          else {
+            return CartFactory.sendCartToApi().then(function(cart){
+              return CartFactory.setCart(cart);
+            });
+          }
         });
       }
     });

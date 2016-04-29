@@ -26,7 +26,7 @@ router.put('/:orderId', function(req,res, next){
         res.json(order);
       }, next);
     } else {
-    res.sendStatus(200);
+      res.json(order);
   }
   });
 });
