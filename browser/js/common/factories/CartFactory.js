@@ -83,7 +83,9 @@ app.factory('CartFactory', function($http, $q, Session){
     sendCartToApi: function(){ //only used when a user has logged in
       return getCart().then(function(cart){
         cart.user = Session.user._id;
-          return $http.post('/api/orders', cart);
+          return $http.post('/api/orders', cart).then(function(res){
+            return res.data;
+          });
         });
 
     },
@@ -99,6 +101,9 @@ app.factory('CartFactory', function($http, $q, Session){
     },
     setCart: function(cart){
       sessionStorage.cart = JSON.stringify(cart);
+    },
+    setCartAsync: function(cart){
+      return setCart(cart);
     },
 
     isCart: function(){
