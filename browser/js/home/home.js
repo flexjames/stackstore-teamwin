@@ -22,6 +22,7 @@ app.config(function($stateProvider) {
             };
 
 
+
         },
         resolve: {
             products: function(ProductsFactory) {

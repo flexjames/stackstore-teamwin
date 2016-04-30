@@ -23,7 +23,6 @@ app.config(function($stateProvider){
             return n+1;
           })
           .then(function(cart){
-            console.log(cart);
             $scope.cart.items[idx] = cart.items[idx];
           });
         };
