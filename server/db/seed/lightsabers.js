@@ -49,6 +49,42 @@ function seed(cat){
        category: [cat.sith, cat.lightsabers],
        imageUrl: [root + 'cross_guard.png'],
        stars: 4
+     },
+     {
+       name: 'Darksaber',
+       description: 'This ancient lightsaber had a unique black blade that was flattened and came to a point like a traditional sword, rather than the rounded beam of more standard lightsabers. ',
+       price: 399,
+       quantity: 10,
+       category: [cat.sith, cat.jedi, cat.lightsabers],
+       imageUrl: [root + 'darksaber.jpg'],
+       stars: 4
+     },
+     {
+       name: 'Shoto',
+       description: 'Essentially, a shoto was a short lightsaber. Featuring a shortened blade length and diminuative handle, it was basically a miniaturized lightsaber. Shoto’s were usually used as the secondary weapon in dual-blade combat, as their smaller blade length resulted in a less intensive gyroscopic effect, making the weapon easier to handle.  ',
+       price: 499,
+       quantity: 9,
+       category: [cat.sith, cat.jedi, cat.lightsabers],
+       imageUrl: [root + 'shoto.jpg'],
+       stars: 4
+     },
+     {
+       name: 'Lightclub',
+       description: 'Essentially the opposite of the shoto, lightclubs were massively oversized lightsabers that projected overlong blades. They were almost universally wielded by individuals of overlarge stature to accommodate their size.  ',
+       price: 699,
+       quantity: 5,
+       category: [cat.sith, cat.jedi, cat.lightsabers],
+       imageUrl: [root + 'lightclub.jpg'],
+       stars: 4
+     },
+     {
+       name: 'Guard Shoto',
+       description: 'A variation on the standard short shoto lightsabers, guard shotos featured an elongated hilt with a secondary handle built angling 90 degrees out from the main hilt. They were built to be carried by the second handle, with the blade parallel to the forearm, allowing the weapon to be easily used for blocks.  ',
+       price: 599,
+       quantity: 8,
+       category: [cat.jedi, cat.lightsabers],
+       imageUrl: [root + 'guard_shoto.jpg'],
+       stars: 4
      }
    ];
    console.log('seeding lightsabers...');
