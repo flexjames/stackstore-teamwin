@@ -11,11 +11,18 @@ router.param('id', function (req, res, next, id) {
 			res.send(404);
 			next();
 		}
-		
+
 		req.requestedUser = user;
 		next();
 	})
 	.then(null, next);
+});
+
+router.get('/:id/orders', function(req,res,next){
+	mongoose.model('Order').find({user: req.requestedUser._id})
+	.then(function(orders){
+		res.json(orders);
+	});
 });
 
 router.post('/', function (req, res, next) {
