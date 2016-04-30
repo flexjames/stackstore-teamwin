@@ -102,8 +102,18 @@ app.factory('CartFactory', function($http, $q, Session){
     setCart: function(cart){
       sessionStorage.cart = JSON.stringify(cart);
     },
-    setCartAsync: function(cart){
-      return setCart(cart);
+    submitCart: function(shipping){
+      return getCart().then(function(cart){
+        cart.status = 'placed';
+        cart.email = shipping.email;
+        cart.address = shipping.address;
+        if (Session.user)
+          return $http.put('/api/orders/checkout/' + cart._id, cart);
+        return $http.post('/api/orders', cart).then(function(){
+          return $http.put('/api/orders/checkout/' + cart._id, cart);
+        });
+      });
+
     },
 
     isCart: function(){

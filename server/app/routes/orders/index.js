@@ -38,6 +38,17 @@ router.post('/', function(req,res,next){
   }, next);
 });
 
+router.put('/checkout/:orderId', function(req,res,next){
+  Order.findById(req.params.orderId).then(function(order){
+    order.status = req.body.status;
+    order.email = req.body.email;
+    order.address = req.body.address;
+    order.save().then(function(){
+      res.sendStatus(200);
+    });
+  });
+});
+
 router.post('/addItem', function(req, res, next) {
   var p = new Promise(function(resolve, reject) {
     if (req.session.order) {
