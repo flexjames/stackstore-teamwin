@@ -73,7 +73,7 @@ function seed(cat){
         price: 165,
         quantity: 6,
         category: [cat.blasters],
-        imageUrl: [root + 'EE-3_Blaster.jpg'],
+        imageUrl: [root + 'EE-3_Blaster.png'],
         stars: 4
       },
       {
