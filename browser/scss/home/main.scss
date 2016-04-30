@@ -3,6 +3,10 @@ div#category-pane{
   width:125px;
   margin:5px;
   cursor: pointer;
+  overflow: hidden;
+  img{
+    border-radius: 10px;
+  }
 }
 
 div#category-panel.col-md-12{
@@ -15,6 +19,7 @@ div#category-panel.col-md-12{
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
 
 img#slide-img{
   width:100%;

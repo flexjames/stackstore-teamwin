@@ -1,7 +1,11 @@
 <uib-accordion>
   <uib-accordion-group ng-repeat="order in orders">
     <uib-accordion-heading>
-      <span>Order ID: {{order._id}} -- {{subtotal(order) | currency}} </span><span class="pull-right">{{order.created | date : 'medium'}}</span>
+      <!-- <span class="badge">Order {{$index + 1}}</span> -->
+      <span class="badge" ng-show="fetchCart()._id === order._id">current order</span>
+      <span>{{subtotal(order) | currency}}</span>
+      <span>/ {{numItems(order)}} items</span>
+      <span class="pull-right">Created: {{order.created | date : 'medium'}}</span>
     </uib-accordion-heading>
     <div class="row" ng-show="order.status==='created' && fetchCart()._id !== order._id">
         <div class="col-md-12">

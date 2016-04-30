@@ -4,6 +4,7 @@ app.config(function($stateProvider){
       templateUrl: '/js/cart/cart.html',
       controller: function(cart, $scope, CartFactory, $state){
         $scope.cart = cart;
+        $scope.shipping = {};
 
         $scope.sendOrder = function(){
           return CartFactory.submitCart($scope.shipping).then(function(){
