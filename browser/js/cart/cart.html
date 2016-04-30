@@ -12,10 +12,11 @@
                 <h5 class="text-right">Quantity </h5></div>
         </div>
     </div>
-    <div class="col-md-12" id="product-row" ng-repeat="item in cart.items">
-        <hr>
+    <div class="col-md-12 well" id="product-row" ng-repeat="item in cart.items">
         <div class="row">
-            <div class="col-md-3"><img class="img-thumbnail pull-left" src="{{item.product.imageUrl[0]}}"></div>
+            <div class="col-md-3" id="product-row-image">
+              <img class="img-thumbnail pull-left" width="125px" src="{{item.product.imageUrl[0]}}">
+            </div>
             <div class="col-md-3 col-md-offset-0">
                 <a ui-sref="product-detail({productId: item.product._id})">{{item.product.name}}</a>
                 <p class="text-success">In-Stock </p>
@@ -23,11 +24,10 @@
             </div>
             <div class="col-md-2 col-md-offset-0">
                 <h4 class="text-right text-danger">{{item.price | currency}} </h4></div>
-            <div class="col-md-3 pull-right"><i ng-click="increment($index)" class="glyphicon glyphicon-arrow-up"></i><i ng-click="decrement($index)" class="glyphicon glyphicon-arrow-down"></i>
+            <div class="col-md-3 pull-right"><i ng-click="increment($index)" id="change-quantity" class="glyphicon glyphicon-arrow-up"></i><i ng-click="decrement($index)" id="change-quantity" class="glyphicon glyphicon-arrow-down"></i>
                 <input class="input-sm" type="text" readonly value="{{item.quantity}}">
             </div>
         </div>
-        <hr>
     </div>
     <div class="well" ng-show="!cart.items.length">
       <h4>There are no items in your cart</h4>

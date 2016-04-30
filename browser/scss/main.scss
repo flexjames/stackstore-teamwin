@@ -6,6 +6,10 @@ body {
   background: #fdfdfd;
 }
 
+.img-thumbnail {
+  border: 0px;
+}
+
 @mixin clearfix {
   &:after {
     content: "";
@@ -24,3 +28,4 @@ body {
 @import 'tutorial/main';
 @import 'login/main';
 @import 'product/main';
+@import 'cart/main';

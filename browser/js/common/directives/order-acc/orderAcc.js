@@ -17,6 +17,7 @@ app.directive('orderAcc', function(){
       $scope.fetchCart = CartFactory.fetchCart;
       $scope.setCart = CartFactory.setCart;
       $scope.subtotal = UtilFactory.subtotal;
+      $scope.numItems = UtilFactory.numItems;
     }
   };
 });
