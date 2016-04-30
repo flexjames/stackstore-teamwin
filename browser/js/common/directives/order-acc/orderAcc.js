@@ -4,7 +4,7 @@ app.directive('orderAcc', function(){
     scope: {
       orders: '='
     },
-    controller: function($scope, UserFactory, CartFactory){
+    controller: function($scope, UserFactory, CartFactory, UtilFactory){
       $scope.removeOrder = function(orderId){
         return UserFactory.removeOrder(orderId)
         .then(function(){
@@ -16,6 +16,7 @@ app.directive('orderAcc', function(){
 
       $scope.fetchCart = CartFactory.fetchCart;
       $scope.setCart = CartFactory.setCart;
+      $scope.subtotal = UtilFactory.subtotal;
     }
   };
 });
