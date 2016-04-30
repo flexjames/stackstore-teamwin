@@ -7,7 +7,7 @@
             <li>
               <a ui-sref-active="active" ui-sref="home">Home</a>
             </li>
-            <li ng-show="!item.auth || isLoggedIn()">
+            <li ng-show="isLoggedIn()">
                 <a ui-sref-active="active" ui-sref="order({userId:user._id})">Profile</a>
             </li>
         </ul>

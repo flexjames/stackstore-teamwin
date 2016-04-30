@@ -49,6 +49,13 @@ router.put('/checkout/:orderId', function(req,res,next){
   });
 });
 
+router.delete('/:orderId', function(req,res,next){
+  Order.remove({_id: req.params.orderId})
+  .then(function(){
+    res.sendStatus(203);
+  },next);
+});
+
 router.post('/addItem', function(req, res, next) {
   var p = new Promise(function(resolve, reject) {
     if (req.session.order) {

@@ -1,16 +1,17 @@
 <uib-accordion>
   <uib-accordion-group ng-repeat="order in orders">
     <uib-accordion-heading>
-      <span>Order ID:{{order._id}}</span><span class="pull-right">{{order.created | date : 'medium'}}</span>
+      <span>Order ID: {{order._id}}</span><span class="pull-right">{{order.created | date : 'medium'}}</span>
     </uib-accordion-heading>
-    <div class="row" ng-show="order.status==='created'">
+    <div class="row" ng-show="order.status==='created' && fetchCart()._id !== order._id">
         <div class="col-md-12">
-            <button class="btn btn-success btn-xs pull-left" type="button">Retrieve this order</button>
-            <button class="btn btn-danger btn-xs pull-right" type="button">Delete</button>
+            <button class="btn btn-success btn-xs pull-left" type="button" ng-click="setCart(order)">Retrieve this order</button>
+            <button class="btn btn-danger btn-xs pull-right" ng-click="removeOrder(order._id)" type="button">Delete</button>
         </div>
-    </div>
+    </div><br>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="item in order.items"><span>{{item.product.name}} : x {{item.quantity}}</span></li>
     </ul>
   </uib-accordion-group>
+  <h4 ng-show="!orders.length">There are no orders</h4>
 </uib-accordion>
