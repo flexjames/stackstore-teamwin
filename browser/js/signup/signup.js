@@ -2,7 +2,7 @@ app.config(function($stateProvider){
 	$stateProvider.state('signup', {
 		url:'/signup',
 		templateUrl: 'js/signup/signup.html',
-		controller: function($scope, $state, AdminFactory){
+		controller: function($scope, $state, AdminFactory,$http){
 			$scope.newUser = {
 				email: '',
 				password: ''
@@ -11,9 +11,7 @@ app.config(function($stateProvider){
 			$scope.createUser = function(){
 				AdminFactory.createUser($scope.newUser)
 				.then(function(user){
-					// $state.go('user', {id: user._id});
-					console.log(user);
-					$state.go('home');
+					$state.go('order', {userId: user._id});
 				});
 			};
 
