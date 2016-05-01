@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 
 
 var itemSchema = mongoose.Schema({
-    product: mongoose.model('Product').schema,
+    product: mongoose.model('Product').schema,//wouldn't you want to store a productId here?
+    // { type: mongoose.Schema.ObjectId, ref: 'Product' }
     quantity: Number,
     price: Number
 });
@@ -58,6 +59,7 @@ orderSchema.methods.updateQuantity = function(itemIdx, quantity){
 };
 
 //returns full product object - argument is the index of the item
+//do you need this? usually you would just populate each lineItems product
 orderSchema.methods.getProductFromItem = function(itemIdx){
   var productId = this.items[itemIdx].product;
   return this.model('Product').findById(productId);
@@ -66,6 +68,7 @@ orderSchema.methods.getProductFromItem = function(itemIdx){
 
 //called when an order has been placed
 orderSchema.methods.commit = function(){
+  //again no need for a promise.. saving creates a promise
   return new Promise(function(resolve,reject){
     if (this.status === 'pending'){ //status is 'pending' if order has been added to a user
       this.status = 'placed';

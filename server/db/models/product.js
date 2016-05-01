@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-  Promise = require('bluebird');
+  Promise = require('bluebird');//not sure you need this
 
 var categorySchema = mongoose.Schema({
   name: {
@@ -39,7 +39,7 @@ var productSchema = mongoose.Schema({
        type: mongoose.Schema.Types.ObjectId
    }],
    reviews: [mongoose.model('Review').schema],
-   stars: Number
+   stars: Number//is starts computed?
 });
 
 //filter products by Category
@@ -48,7 +48,7 @@ productSchema.statics.findByCategory = function(name){
   return mongoose.model('Category').findOne({name: name})
   .then(function(category){
     if (!category)
-      return Promise.resolve([]);
+      return Promise.resolve([]);//you've got a promise already.. you don't need to create a new one
     return instance.find({category: {$in: [ category._id]}});
   });
 
@@ -70,7 +70,7 @@ productSchema.methods.applyCategory = function(name){
   return mongoose.model('Category').findOne({name: name})
     .then(function(category){
       if (!category)
-        return Promise.reject('No such category');
+        return Promise.reject('No such category');//again no need for promise
       instance.category.push(category._id);
       return instance.save();
     });

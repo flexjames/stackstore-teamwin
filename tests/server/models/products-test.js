@@ -41,6 +41,8 @@ describe('Products', function(){
       var _product, _cat1;
       beforeEach(function(done){
         Product.findOne().then(function(product){
+          //you can get away without a promise here..
+          //Category.create([{}, {}]) - can take an array
           Promise.join(Category.create({name: 'blah', description: 'blah blah'}),
             Category.create({name: 'ho hum', description: 'blah blah'}))
           .spread(function(cat1, cat2){
@@ -54,6 +56,7 @@ describe('Products', function(){
         });
       });
       afterEach(function(){
+        //I think fsg code drops database
         return Category.remove();
       });
       it('should add a review and get the user', function(done){

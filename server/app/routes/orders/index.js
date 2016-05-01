@@ -5,12 +5,15 @@ var _ = require('lodash');
 var mongoose = require('mongoose');
 var Order = mongoose.model('Order');
 
+//for RESTful routes-- a get usually returns a collection
 router.get('/', function(req, res,next){
   //returns a new order
   var order = new Order();
   res.json(order);
 });
 
+//who is the user? don't you know the user from passport?
+//req.user?
 router.get('/:userId', function(req,res,next){
   Order.find({user: req.params.userId, status: 'created' })
   .then(function(orders){
@@ -23,9 +26,9 @@ router.put('/:orderId', function(req,res, next){
     if (order){
       order.items = req.body.items;
       order.save().then(function(){
-        res.json(order);
-      }, next);
-    } else {
+        return res.json(order);
+      }, next);//no need for next
+    } else {// no need for else if you return before
       res.json(order);
   }
   });
@@ -38,6 +41,7 @@ router.post('/', function(req,res,next){
   }, next);
 });
 
+//this could be RESTful-- if status is changing to 'checkout' state-- then you know you are checking out..
 router.put('/checkout/:orderId', function(req,res,next){
   Order.findById(req.params.orderId).then(function(order){
     order.status = req.body.status;
@@ -56,7 +60,12 @@ router.delete('/:orderId', function(req,res,next){
   },next);
 });
 
+//this could also be RESTful
+// POST to /:orderId/lineItems to add a lineItem
+// PUT to /:orderId/lineItems/:id to edit a lineItem
+// DELETE to /:orderId/lineItems/:id to edit a lineItem
 router.post('/addItem', function(req, res, next) {
+  //no need for promises
   var p = new Promise(function(resolve, reject) {
     if (req.session.order) {
       Order.findById(req.session.order)

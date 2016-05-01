@@ -41,6 +41,7 @@ router.post('/', function(req, res, next){
 router.put('/:id', function(req, res, next){
 	Products.findById(req.params.id)
 	.then(function(product){
+    //white list parameters you want
 		var fields = Object.keys(req.body);
 
 		fields.forEach(function(field){
@@ -62,9 +63,5 @@ router.delete('/:id', function(req, res, next){
 	})
 	.then(null, next);
 });
-
-
-
-
 
 module.exports = router;
