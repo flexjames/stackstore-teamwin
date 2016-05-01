@@ -2,7 +2,7 @@ app.config(function ($stateProvider) {
     $stateProvider.state('product-detail', {
         url: '/product/:productId',
         templateUrl: 'js/product/product.html',
-        controller: function ($scope, product, CartFactory, Session, UtilFactory, UserFactory, AuthService, ProductsFactory) {
+        controller: function ($scope, $rootScope, product, CartFactory, Session, UtilFactory, UserFactory, AuthService, ProductsFactory) {
             $scope.product = product;
             $scope.makeNew = false;
             $scope.quantity = 1;
@@ -46,6 +46,16 @@ app.config(function ($stateProvider) {
                   $scope.product.reviews.push(product.reviews[product.reviews.length -1]);
                 });
               }
+            };
+
+            $scope.userHasReviewed = function(){
+              if (Session.user){
+                var users = $scope.product.reviews.map(function(it){
+                  return it.author;
+                });
+                return users.indexOf(Session.user._id) > -1;
+              }
+              return false;
             };
         },
         resolve: {
