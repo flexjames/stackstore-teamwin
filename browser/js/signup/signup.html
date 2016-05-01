@@ -1,0 +1,15 @@
+<div class='well'>
+	<form class="form" name="NewUserForm" novalidate>
+		<div class='form-group'>
+			<label for='email'>E-mail Address</label>
+			<input class='form-control' name='userEmail' type='email' ng-model='newUser.email' required/>
+			<p ng-show="NewUserForm.userEmail.$invalid && NewUserForm.userEmail.$touched">Please enter a valid email address</p>
+		</div>
+		<div class='form-group'>
+			<label for='password'>Password</label>
+			<input class='form-control' name='email' type='text' ng-model='newUser.password' required/>
+		</div>	
+	</form>
+	<button class='btn btn-danger' ng-click='goHome()'>Cancel</button>
+	<button class='btn btn-success' ng-disabled="NewUserForm.$invalid" ng-click='createUser()'>Create Account</button>
+</div>
