@@ -18,27 +18,36 @@
 		<div class="col-xs-4">
 					<span>Quantity: </span>
 					<input type="text" ng-model="quantity" />
-					<!-- <select class="col-xs-4" class="form-control">
-				    	<option ng-repeat="i in getQuantity() track by $index">{{i}}</option>
-				    </select> -->
 			<button type="button" class="btn btn-success btn-lg btn-block" id="cart-btn-lg" ng-click="addToCart(product)">Add to Cart</button>
 		</div>
 	</div>
 	<div id="divider" class="col-xs-12"></div>
 	<div id="reviews" class="row">
-		<h3>Customer Reviews</h3>
+		<span><h3>Customer Reviews</h3></span>
+		<button class="btn btn-lg btn-warning" ng-class="{active: makeNew}" ng-click="makeNew=!makeNew" ng-show="isLoggedIn()">Write a review</button>
+		<div class="well clearfix" ng-show="makeNew">
+			<form >
+		    <div class="form-group"><span>Title</span>
+		        <input type="text" class="form-control" ng-model="newReview.title" />
+		    </div>
+		    <div class="form-group"><span>Content</span>
+		        <textarea class="form-control" ng-model="newReview.content"></textarea>
+		    </div>
+				<button class="btn btn-danger pull-right" ng-click="submitReview()">Submit</button>
+			</form>
+		</div>
+
 		<div class="list-group">
 			<!-- Will use ng-repeat on product's customer reviews array -->
-			<div class="list-group-item">
-				<h4 class="list-group-item-heading">Review Title 1</h4>
-				<h5 class="list-group-item-heading">By: User 1</h5>
-			    <p class="list-group-item-text">This is the description of the first user's review all written out in text.</p>
+			<div class="list-group-item" ng-show="review.content" ng-repeat="review in product.reviews">
+				<h3 class="list-group-item-heading">{{review.title}}</h3>
+				<small class="pull-right"><i>{{review.created | date: 'medium'}}</i></small>
+				<h5 class="list-group-item-heading" ng-init="getUser(review.author, $index)">{{review.useremail}}</h5>
+			    <p class="list-group-item-text well">{{review.content}}</p>
 			</div>
-			<div class="list-group-item">
-				<h4 class="list-group-item-heading">Review Title 2</h4>
-				<h5 class="list-group-item-heading">By: User 2</h5>
-			    <p class="list-group-item-text">This is the description of the second user's review all written out in text.</p>
-			</div>
+		</div>
+		<div class="well" ng-show="!product.reviews.length">
+			<h5>There are no reviews yet</h5>
 		</div>
 	</div>
 </div>

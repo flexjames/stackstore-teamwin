@@ -18,6 +18,9 @@ router.param('id', function (req, res, next, id) {
 	.then(null, next);
 });
 
+router.get('/:id', function(req,res,next){
+	res.json(req.requestedUser);
+});
 router.get('/:id/orders', function(req,res,next){
 	mongoose.model('Order').find({user: req.requestedUser._id})
 	.then(function(orders){
@@ -33,6 +36,7 @@ router.post('/', function (req, res, next) {
 	.then(null, next);
 });
 
+//This needs to require admin rights
 router.put('/:id', function (req, res, next) {
 	_.extend(req.requestedUser, req.body);
 	req.requestedUser.save()
@@ -41,7 +45,7 @@ router.put('/:id', function (req, res, next) {
 	})
 	.then(null, next);
 });
-
+//This needs to require admin rights
 router.delete('/:id', function (req, res, next) {
 	req.requestedUser.remove()
 	.then(function () {
