@@ -27,6 +27,7 @@
 		<button class="btn btn-lg btn-warning" ng-class="{active: makeNew}" ng-click="makeNew=!makeNew" ng-show="isLoggedIn()">Write a review</button>
 		<div class="well clearfix" ng-show="makeNew">
 			<form >
+				<stars-rating editable="true" model="newReview"></stars-rating>
 		    <div class="form-group"><span>Title</span>
 		        <input type="text" class="form-control" ng-model="newReview.title" />
 		    </div>
@@ -41,6 +42,7 @@
 			<!-- Will use ng-repeat on product's customer reviews array -->
 			<div class="list-group-item" ng-show="review.content" ng-repeat="review in product.reviews">
 				<h3 class="list-group-item-heading">{{review.title}}</h3>
+				<stars-rating numstars="review.stars"></stars-rating>
 				<small class="pull-right"><i>{{review.created | date: 'medium'}}</i></small>
 				<h5 class="list-group-item-heading" ng-init="getUser(review.author, $index)">{{review.useremail}}</h5>
 			    <p class="list-group-item-text well">{{review.content}}</p>

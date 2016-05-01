@@ -6,6 +6,7 @@ app.config(function ($stateProvider) {
             $scope.product = product;
             $scope.makeNew = false;
             $scope.quantity = 1;
+            $scope.newReview = {};
 
             $scope.getQuantity = function () {
                 var total;
