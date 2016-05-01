@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-
+var mailer = require('../mailer');
+var user = mongoose.model('User');
 
 var itemSchema = mongoose.Schema({
     product: mongoose.model('Product').schema,
@@ -76,6 +77,19 @@ orderSchema.methods.commit = function(){
     }
     reject("Order has no associated user");
   });
+};
+
+//send confirmation email
+orderSchema.methods.confirm = function(){
+  var o = this;
+  return user.findById(this.user){
+    .then(function(user){
+      mailer.sendOrderConfirmation({to: user.email});
+    })
+    .then(function(){
+      return o;
+    });
+  };
 };
 
 mongoose.model('LineItem', itemSchema);
