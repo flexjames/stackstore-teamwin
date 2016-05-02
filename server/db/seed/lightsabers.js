@@ -11,8 +11,7 @@ function seed(cat){
        price: 199,
        quantity: 10,
        category: [cat.jedi, cat.sith, cat.lightsabers],
-       imageUrl: [root + 'single_blade.png'],
-       stars: 5
+       imageUrl: [root + 'single_blade.png']
      },
      {
        name: 'Double-bladed',
@@ -20,8 +19,7 @@ function seed(cat){
        price: 399,
        quantity: 7,
        category: [cat.sith, cat.lightsabers],
-       imageUrl: [root + 'double_blade.jpg'],
-       stars: 3
+       imageUrl: [root + 'double_blade.jpg']
      },
      {
        name: 'Lightsaber Pike',
@@ -29,8 +27,7 @@ function seed(cat){
        price: 499,
        quantity: 10,
        category: [cat.jedi, cat.lightsabers],
-       imageUrl: [root + 'pike.jpg'],
-       stars: 2
+       imageUrl: [root + 'pike.jpg']
      },
      {
        name: 'Blaster-Hybrid',
@@ -38,8 +35,7 @@ function seed(cat){
        price: 299,
        quantity: 7,
        category: [cat.jedi, cat.blasters, cat.lightsabers],
-       imageUrl: [root + 'hybrid.jpg'],
-       stars: 2
+       imageUrl: [root + 'hybrid.jpg']
      },
      {
        name: 'Crossguard',
@@ -47,8 +43,7 @@ function seed(cat){
        price: 399,
        quantity: 5,
        category: [cat.sith, cat.lightsabers],
-       imageUrl: [root + 'cross_guard.png'],
-       stars: 4
+       imageUrl: [root + 'cross_guard.png']
      },
      {
        name: 'Darksaber',
@@ -56,8 +51,7 @@ function seed(cat){
        price: 399,
        quantity: 10,
        category: [cat.sith, cat.jedi, cat.lightsabers],
-       imageUrl: [root + 'darksaber.jpg'],
-       stars: 4
+       imageUrl: [root + 'darksaber.jpg']
      },
      {
        name: 'Shoto',
@@ -65,8 +59,7 @@ function seed(cat){
        price: 499,
        quantity: 9,
        category: [cat.sith, cat.jedi, cat.lightsabers],
-       imageUrl: [root + 'shoto.jpg'],
-       stars: 4
+       imageUrl: [root + 'shoto.jpg']
      },
      {
        name: 'Lightclub',
@@ -74,8 +67,7 @@ function seed(cat){
        price: 699,
        quantity: 5,
        category: [cat.sith, cat.jedi, cat.lightsabers],
-       imageUrl: [root + 'lightclub.jpg'],
-       stars: 4
+       imageUrl: [root + 'lightclub.jpg']
      },
      {
        name: 'Guard Shoto',
@@ -83,8 +75,7 @@ function seed(cat){
        price: 599,
        quantity: 8,
        category: [cat.jedi, cat.lightsabers],
-       imageUrl: [root + 'guard_shoto.jpg'],
-       stars: 4
+       imageUrl: [root + 'guard_shoto.jpg']
      }
    ];
    console.log('seeding lightsabers...');

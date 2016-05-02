@@ -8,6 +8,11 @@ app.factory('UserFactory', function($http){
     },
     removeOrder: function(orderId){
       return $http.delete('/api/orders/' + orderId);
+    },
+    getOneUser: function(userId){
+      return $http.get('/api/users/' + userId).then(function(res){
+        return res.data;
+      });
     }
   };
 });

@@ -22,11 +22,15 @@ app.factory('ProductsFactory', function($http){
 		});
 	};
 
-	ProductsFactory.create = function(data){
-		return $http.post('/api/products', data)
+	ProductsFactory.addReview = function(productId, data){
+		return $http.post('/api/products/' + productId + '/reviews', data)
 		.then(function(response){
 			return response.data;
 		});
+	};
+
+	ProductsFactory.create = function(data){
+
 	};
 
 	ProductsFactory.edit = function(id, data){
