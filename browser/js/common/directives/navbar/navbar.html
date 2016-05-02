@@ -14,7 +14,11 @@
         <button class="btn btn-success btn-sm" id="cart-btn" type="button" ui-sref="cart">
           <i class="material-icons">shopping_cart</i><span> ({{getQuantity()}} items)</span>
         </button>
-        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
+
+        <div ng-show="!user">
+          <button ui-sref="login" class="btn login-button btn-default">Login</button>
+          <button ui-sref="signup" class="btn login-button btn-warning">Sign Up</button>
+        </div>
         <div ng-show="user" class="welcome">
             <span>Welcome, {{ user.email }}!</span>
             <a ng-click="logout()">Logout</a>

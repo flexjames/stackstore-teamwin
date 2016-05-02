@@ -118,6 +118,33 @@ app.factory('CartFactory', function($http, $q, Session){
 
     isCart: function(){
       return checkLocal();
+    },
+    initCart: function(){
+      var instance = this;
+      return $q(function(resolve,reject){
+        var user = Session.user;
+        if (instance.isCart()) {//If anon user has begun filling cart
+          return instance.sendCartToApi().then(function(cart){
+            instance.setCart(cart);
+            resolve();
+          });
+        }
+        else if (!instance.isCart() && user) {
+          return instance.fetchOrders(user._id).then(function(orders){
+            if (orders.length){
+              instance.setCart(orders[orders.length -1]);
+              resolve();
+            }
+            else {
+              return instance.sendCartToApi().then(function(cart){
+                instance.setCart(cart);
+                resolve();
+              });
+            }
+          });
+        }
+      });
+
     }
   };
 });
