@@ -3,10 +3,8 @@ app.directive('productPane', function(){
     scope:{
       product: '='
     },
-    controller: function($scope, CartFactory){
-      $scope.getStars = function(product){
-          return new Array(product.stars);
-      };
+    controller: function($scope, CartFactory, UtilFactory){
+      $scope.getStars = UtilFactory.getStars;
       $scope.addToCart = function(product){
         return CartFactory.addToCart(product, 1);
       };

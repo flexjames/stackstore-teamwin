@@ -10,8 +10,7 @@ function seed(cat){
         price: 99,
         quantity: 20,
         category: [cat.blasters],
-        imageUrl: [root + 'pistol.jpg' ],
-        stars: 3
+        imageUrl: [root + 'pistol.jpg' ]
       },
       {
         name: 'Blaster Rifle',
@@ -19,8 +18,7 @@ function seed(cat){
         price: 225,
         quantity: 15,
         category: [cat.blasters],
-        imageUrl: [root + 'blaster_rifle.jpg'],
-        stars: 2
+        imageUrl: [root + 'blaster_rifle.jpg']
       },
       {
         name: 'D-17 Blaster Pistol',
@@ -28,8 +26,7 @@ function seed(cat){
         price: 125,
         quantity: 10,
         category: [cat.blasters],
-        imageUrl: [root + 'dh-17.jpg'],
-        stars: 4
+        imageUrl: [root + 'dh-17.jpg']
       },
       {
         name: 'A280C Blaster Rifle',
@@ -37,8 +34,7 @@ function seed(cat){
         price: 250,
         quantity: 10,
         category: [cat.blasters],
-        imageUrl: [root + 'A280C_Rifle.jpg'],
-        stars: 4
+        imageUrl: [root + 'A280C_Rifle.jpg']
       },
       {
         name: 'CA-87 Blaster',
@@ -46,8 +42,7 @@ function seed(cat){
         price: 175,
         quantity: 6,
         category: [cat.blasters],
-        imageUrl: [root + 'CA-87_Blaster.jpg'],
-        stars: 4
+        imageUrl: [root + 'CA-87_Blaster.jpg']
       },
       {
         name: 'DL-44 Blaster',
@@ -55,8 +50,7 @@ function seed(cat){
         price: 185,
         quantity: 3,
         category: [cat.blasters],
-        imageUrl: [root + 'DL-44_Blaster.png'],
-        stars: 4
+        imageUrl: [root + 'DL-44_Blaster.png']
       },
       {
         name: 'DLT-19 Blaster Rifle',
@@ -64,8 +58,7 @@ function seed(cat){
         price: 265,
         quantity: 7,
         category: [cat.blasters],
-        imageUrl: [root + 'DLT-19_Rifle.jpg'],
-        stars: 4
+        imageUrl: [root + 'DLT-19_Rifle.jpg']
       },
       {
         name: 'EE-3 Blaster',
@@ -73,8 +66,7 @@ function seed(cat){
         price: 165,
         quantity: 6,
         category: [cat.blasters],
-        imageUrl: [root + 'EE-3_Blaster.png'],
-        stars: 4
+        imageUrl: [root + 'EE-3_Blaster.png']
       },
       {
         name: 'RT-97C Blaster Rifle',
@@ -82,8 +74,7 @@ function seed(cat){
         price: 225,
         quantity: 4,
         category: [cat.blasters],
-        imageUrl: [root + 'RT-97C_Rifle.jpg'],
-        stars: 4
+        imageUrl: [root + 'RT-97C_Rifle.jpg']
       },
        {
         name: 'SE-14C Blaster',
@@ -91,8 +82,7 @@ function seed(cat){
         price: 245,
         quantity: 8,
         category: [cat.blasters],
-        imageUrl: [root + 'SE-14C_Blaster.png'],
-        stars: 4
+        imageUrl: [root + 'SE-14C_Blaster.png']
       }
     ];
     console.log('seeding blasters...');

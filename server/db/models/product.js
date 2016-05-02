@@ -38,8 +38,7 @@ var productSchema = mongoose.Schema({
        //movie names?
        type: mongoose.Schema.Types.ObjectId
    }],
-   reviews: [mongoose.model('Review').schema],
-   stars: Number
+   reviews: [mongoose.model('Review').schema]
 });
 
 //filter products by Category
@@ -55,10 +54,12 @@ productSchema.statics.findByCategory = function(name){
 };
 
 //assigns review to product
-productSchema.methods.addReview = function(reviewData, userId){
+productSchema.methods.addReview = function(reviewData){
     var review = this.model('Review')({
-      author: userId,
-      content: reviewData
+      author: reviewData.user,
+      content: reviewData.content,
+      title: reviewData.title,
+      stars: reviewData.stars,
     });
     this.reviews.push(review);
     return this.save();

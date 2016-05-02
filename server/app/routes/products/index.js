@@ -4,6 +4,13 @@
 var router = require('express').Router();
 var Products = require('mongoose').model('Product');
 
+router.param('id', function(req,res,next, id){
+	Products.findById(id).then(function(product){
+		if (product)
+			req.product = product;
+		next();
+	}, next);
+});
 //get all products
 router.get('/', function(req, res, next){
 	Products.find()
@@ -14,10 +21,13 @@ router.get('/', function(req, res, next){
 
 //get one product
 router.get('/:id', function(req, res, next){
-	Products.findOne({_id: req.params.id})
-	.then(function(product){
+		res.json(req.product);
+});
+
+router.post('/:id/reviews', function(req,res,next){
+	req.product.addReview(req.body).then(function(product){
 		res.json(product);
-	},next);
+	}, next);
 });
 
 //get by category
