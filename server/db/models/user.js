@@ -24,7 +24,10 @@ var schema = new mongoose.Schema({
         id: String
     },
     google: {
-        id: String
+        id: String,
+        token: String,
+        name: String,
+        email: String
     },
     orders:[{type: mongoose.Schema.Types.ObjectId, ref: 'Order'}],
     isAdmin:{
