@@ -23,6 +23,9 @@ app.config(function($stateProvider){
 					//OM: need to handle errors better,
 					//db prevents records from having duplicate emails
 					console.log(err);
+					if (err){
+						$scope.emailTaken = true;
+					};
 				});
 			};
 		}
