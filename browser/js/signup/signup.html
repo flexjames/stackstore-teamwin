@@ -4,7 +4,7 @@
 		<form class="form" name="NewUserForm" novalidate>
 			<div class='form-group'>
 				<label for='email'>E-mail Address</label>
-				<input class='form-control' name='userEmail' type='email' ng-model='newUser.email' required/>
+				<input class='form-control' name='userEmail' type='email' ng-change="changeValue()" ng-model='newUser.email' required/>
 				<p class="text-danger" ng-show="NewUserForm.userEmail.$invalid && NewUserForm.userEmail.$touched">Please enter a valid email address</p>
 				<p class="text-danger" ng-show="emailTaken === true">Email address is already registered</p>
 			</div>

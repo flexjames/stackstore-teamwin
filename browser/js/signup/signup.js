@@ -8,6 +8,11 @@ app.config(function($stateProvider){
 				password: ''
 			};
 
+			$scope.changeValue = function(){
+				$scope.emailTaken = false;
+				$scope.NewUserForm.$setUntouched();
+			};
+
 			$scope.createUser = function(){
 				AdminFactory.createUser($scope.newUser)
 				.then(function(user){
