@@ -10,6 +10,9 @@
             <li ng-show="isLoggedIn()">
                 <a ui-sref-active="active" ui-sref="order({userId:user._id})">Profile</a>
             </li>
+            <li ng-show="user.isAdmin">
+              <a ui-sref="admin.users">Admin</a>
+            </li>
         </ul>
         <button class="btn btn-success btn-sm" id="cart-btn" type="button" ui-sref="cart">
           <i class="material-icons">shopping_cart</i><span> ({{getQuantity()}} items)</span>
