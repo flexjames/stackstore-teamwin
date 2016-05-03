@@ -39,14 +39,17 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Shipping Information</h3></div>
             <div class="panel-body">
-                <form><span>Email </span>
-                    <input ng-model="shipping.email" class="form-control" type="text"><span>Address </span>
-                    <input ng-model="shipping.address" class="form-control" type="text">
+                <form name="ShippingForm">
+                    <span>Email </span>
+                    <input name="shippingEmail" ng-model="shipping.email" class="form-control" type="email" ng-change="untouch()" required>
+                    <p class="text-danger" ng-show="ShippingForm.shippingEmail.$invalid && ShippingForm.shippingEmail.$touched">Please enter a valid email address</p>
+                    <span>Address </span>
+                    <input ng-model="shipping.address" class="form-control" type="text" required>
                 </form>
             </div>
         </div>
     </div>
     <div class="col-md-12">
-        <button class="btn btn-warning btn-lg pull-right" ng-show="cart.items.length" ng-click="sendOrder()" type="button">Submit Order</button>
+        <button class="btn btn-warning btn-lg pull-right" ng-show="cart.items.length" ng-click="sendOrder()" ng-disabled="ShippingForm.$invalid" type="button">Submit Order</button>
     </div>
 </div>
