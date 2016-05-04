@@ -52,7 +52,7 @@ module.exports = function (app) {
 
     app.get('/auth/google/callback',
         passport.authenticate('google', { failureRedirect: '/login' }),
-        function (req, res) {
+        function (req, res, next) {
             res.redirect('/');
         });
 
