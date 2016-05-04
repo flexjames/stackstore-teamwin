@@ -27,15 +27,15 @@
 		<button class="btn btn-lg btn-warning" ng-class="{active: makeNew}" ng-click="makeNew=!makeNew" ng-show="isLoggedIn() && !userHasReviewed()">Write a review</button>
 		<h5 ng-show="userHasReviewed()">You've already reviewed this product</h5>
 		<div class="well clearfix" ng-show="makeNew">
-			<form >
+			<form name="ReviewForm" novalidate>
 				<stars-rating editable="true" model="newReview"></stars-rating>
 		    <div class="form-group"><span>Title</span>
-		        <input type="text" class="form-control" ng-model="newReview.title" />
+		        <input type="text" class="form-control" ng-model="newReview.title" required/>
 		    </div>
 		    <div class="form-group"><span>Content</span>
-		        <textarea class="form-control" ng-model="newReview.content"></textarea>
+		        <textarea class="form-control" ng-model="newReview.content" required></textarea>
 		    </div>
-				<button class="btn btn-danger pull-right" ng-click="submitReview()">Submit</button>
+				<button class="btn btn-danger pull-right" ng-click="submitReview()" ng-disabled="ReviewForm.$invalid">Submit</button>
 			</form>
 		</div>
 
