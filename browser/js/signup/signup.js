@@ -8,6 +8,11 @@ app.config(function($stateProvider){
 				password: ''
 			};
 
+			$scope.changeValue = function(){
+				$scope.emailTaken = false;
+				$scope.NewUserForm.$setUntouched();
+			};
+
 			$scope.createUser = function(){
 				AdminFactory.createUser($scope.newUser)
 				.then(function(user){
@@ -23,6 +28,9 @@ app.config(function($stateProvider){
 					//OM: need to handle errors better,
 					//db prevents records from having duplicate emails
 					console.log(err);
+					if (err){
+						$scope.emailTaken = true;
+					};
 				});
 			};
 		}
