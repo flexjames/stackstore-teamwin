@@ -39,24 +39,17 @@ router.post('/', function(req, res, next) {
 });
 
 router.put('/checkout/:orderId', function(req, res, next) {
-Order.findById(req.params.orderId).then(function(order) {
-    if (order) {
-      order.status = req.body.status;
-      order.email = req.body.email;
-      order.address = req.body.address;
-      return order;
-    } else {
-      return Order.create(req.body);
-    }
-  })
-  .then(function(order) {
-    return order.save();
-  })
-  .then(function(order) {
-    return order.confirm();
-  })
-  .then(function() {
-    res.sendStatus(200);
+    Order.findById(req.params.orderId).then(function(order) {
+    order.status = req.body.status;
+    order.email = req.body.email;
+    order.address = req.body.address;
+    order.save()
+    .then(function(order) {
+      return order.confirm();
+    })
+    .then(function() {
+      res.sendStatus(200);
+    });
   });
 });
 
