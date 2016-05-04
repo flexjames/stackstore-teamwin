@@ -11,23 +11,24 @@ app.config(function ($stateProvider) {
 app.controller('LoginCtrl', function ($scope, AuthService, $state, AUTH_EVENTS, Session, CartFactory) {
 
     $scope.$on(AUTH_EVENTS.loginSuccess, function(){
-      var user = Session.user;
-      if (CartFactory.isCart()) {//If anon user has begun filling cart
-        return CartFactory.sendCartToApi().then(function(cart){
-          CartFactory.setCart(cart);
-        });//TO DO: add merging of carts
-      }
-      else if (!CartFactory.isCart() && user) {
-        return CartFactory.fetchOrders(user._id).then(function(orders){
-          if (orders.length)
-            CartFactory.setCart(orders[orders.length -1]);
-          else {
-            return CartFactory.sendCartToApi().then(function(cart){
-              return CartFactory.setCart(cart);
-            });
-          }
-        });
-      }
+      return CartFactory.initCart();
+
+      // if (CartFactory.isCart()) {//If anon user has begun filling cart
+      //   return CartFactory.sendCartToApi().then(function(cart){
+      //     CartFactory.setCart(cart);
+      //   });//TO DO: add merging of carts
+      // }
+      // else if (!CartFactory.isCart() && user) {
+      //   return CartFactory.fetchOrders(user._id).then(function(orders){
+      //     if (orders.length)
+      //       CartFactory.setCart(orders[orders.length -1]);
+      //     else {
+      //       return CartFactory.sendCartToApi().then(function(cart){
+      //         return CartFactory.setCart(cart);
+      //       });
+      //     }
+      //   });
+      // }
     });
 
     $scope.login = {};

@@ -29,9 +29,12 @@ router.get('/:id/orders', function(req,res,next){
 });
 
 router.post('/', function (req, res, next) {
-	mongoose.model('User').create(req.body)
+	mongoose.model('User').create({
+		email: req.body.email,
+		password: req.body.password
+	})
 	.then(function(user) {
-		res.status(201).json(user);
+		res.json(user);
 	})
 	.then(null, next);
 });
