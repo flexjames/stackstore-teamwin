@@ -11,14 +11,15 @@
 		</div>
 		<div class="col-xs-4">
 			<p id="priceLabel">Price: {{product.price | currency}}</p>
-			<p id="availabilityLabel">Currently Available.</p>
-			<p id="remainingStockLabel">{{product.quantity}} left in stock.</p>
+			<p id="availabilityLabel" ng-show="product.available">Currently Available.</p>
+			<p ng-show="product.available" id="remainingStockLabel">{{product.quantity}} left in stock.</p>
+			<p ng-show="!product.available"  class="text-danger"><b>UNAVAILABLE</b></p>
 			<p>{{product.description}}</p>
 		</div>
 		<div class="col-xs-4">
 					<span>Quantity: </span>
 					<input type="text" ng-model="quantity" />
-			<button type="button" class="btn btn-success btn-lg btn-block" id="cart-btn-lg" ng-click="addToCart(product)">Add to Cart</button>
+			<button type="button" class="btn btn-success btn-lg btn-block" ng-disabled="!product.available" id="cart-btn-lg" ng-click="addToCart(product)">Add to Cart</button>
 		</div>
 	</div>
 	<div id="divider" class="col-xs-12"></div>

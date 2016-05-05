@@ -1,8 +1,9 @@
 app.factory('ProductsFactory', function($http){
 	var ProductsFactory = {};
 
-	ProductsFactory.fetchAll = function(){
-		return $http.get('/api/products')
+	ProductsFactory.fetchAll = function(getAvailable){
+		var url = getAvailable ? '/api/products?available=true' : '/api/products';
+		return $http.get(url)
 		.then(function(response){
 			return response.data;
 		});
