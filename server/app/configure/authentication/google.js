@@ -17,17 +17,15 @@ module.exports = function (app) {
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
 
-        UserModel.findOne({ 'google.id': profile.id }).exec()
+        var emails = profile.emails.map(function(email){return email.value;});
+
+        UserModel.findOne({ email: {$in: emails }}).exec()
             .then(function (user) {
 
                 if (user) {
                     return user;
                 } else {
-                    return UserModel.create({
-                        google: {
-                            id: profile.id
-                        }
-                    });
+                    return UserModel.create({email: emails[0]});
                 }
 
             })
