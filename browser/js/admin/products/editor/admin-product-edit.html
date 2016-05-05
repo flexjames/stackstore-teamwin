@@ -2,7 +2,7 @@
 	<br>
 	<div class="alert alert-danger clearfix" role="alert">
 		<h5 class="pull-left">Product edit mode</h5>
-		<button class="btn btn-danger pull-right">Save changes</button>
+		<button class="btn btn-danger pull-right" ng-click="saveChanges()">Save changes</button>
 	</div>
 	<div id="product" class="row">
 		<div class="col-xs-4">
@@ -20,7 +20,7 @@
 			<p><span>Price:</span>
 			<input type="text" class="input-lg" ng-model="product.price" placeholder="price"></input></p>
 			<span>Quantity:</span>
-			<input type="text" class="input-lg" ng-model="product.quantity"></input>
+			<input type="text" class="input-lg" placeholder="quantity" ng-model="product.quantity"></input>
 			<p ng-show="!product.available" class="text-danger"><b>UNAVAILABLE</b></p>
 			<span>Description:</span>
 			<textarea class="form-control" rows="10" ng-model="product.description"></textarea>

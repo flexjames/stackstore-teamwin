@@ -3,7 +3,7 @@ app.config(function($stateProvider){
     .state('admin.productsEdit',{
       url: '/products/:productId',
       templateUrl: '/js/admin/products/editor/admin-product-edit.html',
-      controller: function(product, categories, $scope){
+      controller: function(product, categories, $scope, $state, AdminFactory){
         $scope.product = product;
         $scope.categories = categories;
         $scope.checkCategory = function(category){
@@ -15,6 +15,19 @@ app.config(function($stateProvider){
             $scope.product.category.push(category._id);
           else
             $scope.product.category.splice(idx, 1);
+        };
+        $scope.saveChanges = function(){
+          try{
+            $scope.product.price = Number($scope.product.price);
+            $scope.product.quantity = Number($scope.product.quantity);
+          }catch(err){
+            $scope.err = true;
+            return;
+          }
+          return AdminFactory.editProduct($scope.product._id, $scope.product)
+          .then(function(){
+            $state.go('admin.products');
+          });
         };
       },
       resolve: {

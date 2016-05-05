@@ -1,8 +1,9 @@
 <div>
     <h4>Showing: {{products.length}} products</h4>
+    <button class="btn btn-success" type="button" ng-click="createNewProduct()">+Add product</button>
     <ul class="list-group">
         <li class="list-group-item clearfix" ng-repeat="product in products">
-            <span class="pull-left"><b>{{product.name}}</b> / </span>
+            <span class="pull-left"><b>{{product.name || '(No name)'}}</b> / </span>
               <span ng-show="product.available" class="bg-success">IN-STOCK</span>
               <span ng-show="!product.available" class="bg-danger">UNAVAILABLE</span>
             <div class="btn-group pull-right" role="group">
@@ -13,5 +14,4 @@
             </div>
         </li>
     </ul>
-    <button class="btn btn-success" type="button">+Add product</button>
 </div>
