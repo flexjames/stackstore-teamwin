@@ -5,7 +5,8 @@ app.directive('orderAcc', function(){
       orders: '=',
       admin: '='
     },
-    controller: function($scope, UserFactory, CartFactory, UtilFactory){
+    controller: function($scope, UserFactory, CartFactory, UtilFactory, AdminFactory){
+      $scope.data = {};
       $scope.removeOrder = function(orderId){
         return UserFactory.removeOrder(orderId)
         .then(function(){
@@ -18,6 +19,13 @@ app.directive('orderAcc', function(){
         UserFactory.getOneUser(order.user).then(function(user){
           order.user = user.email;
         });
+      };
+      $scope.changeStatus = function(order){
+        if (order.newStatus)
+          return AdminFactory.editOrder(order._id, {status: order.newStatus})
+          .then(function(){
+            console.log('ok');
+          });
       };
 
       $scope.fetchCart = CartFactory.fetchCart;

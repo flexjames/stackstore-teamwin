@@ -31,7 +31,10 @@ router.get('/:userId', function(req, res, next) {
 router.put('/:orderId', function(req, res, next) {
   Order.findById(req.params.orderId).then(function(order) {
     if (order) {
-      order.items = req.body.items;
+      if (req.body.items)
+        order.items = req.body.items;
+      if (req.body.status)
+        order.status = req.body.status;
       order.save().then(function() {
         res.json(order);
       }, next);

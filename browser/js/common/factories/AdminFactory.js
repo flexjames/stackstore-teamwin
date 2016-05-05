@@ -56,6 +56,13 @@ app.factory('AdminFactory', function($http){
 		});
 	};
 
+	AdminFactory.editOrder = function(id, data){
+		return $http.put('/api/orders/' + id, data)
+		.then(function(res){
+			return res.data;
+		});
+	};
+
 
 	return AdminFactory;
 });

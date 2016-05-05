@@ -21,19 +21,6 @@ app.config(function($stateProvider){
       templateUrl: '/js/admin/admin-products.html',
       url: '/products'
     })
-    .state('admin.orders', {
-      templateUrl: '/js/admin/admin-orders.html',
-      url: '/orders',
-      controller: function(orders, $scope){
-        console.log(orders);
-        $scope.orders = orders;
-      },
-      resolve: {
-        orders: function(AdminFactory){
-          return AdminFactory.getAllOrders();
-        }
-      }
-    })
     .state('admin.categories', {
       templateUrl: '/js/admin/admin-categories.html',
       url: '/categories'

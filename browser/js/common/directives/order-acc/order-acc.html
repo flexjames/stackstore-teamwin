@@ -6,16 +6,14 @@
       <b><span>{{order.created | date : 'medium'}}</span></b>
 
       <div ng-if='admin'>
-        <button class="btn btn-sm btn-warning pull-right" style="margin-left:5px;">Commit</button>
-        <span>Status: {{order.status}} / </span>
         <span ng-init="getUser(order)">User: {{order.user}}</span>
-        <select class="pull-right">
-          <option>Created</option>
-          <option>Processing</option>
-          <option>Canceled</option>
-          <option>Completed</option>
+        <select class="pull-right" ng-model="order.newStatus">
+          <option ng-selected="order.status==='created'" value="created">Created</option>
+          <option ng-selected="order.status==='placed'" value="placed">Processing</option>
+          <option ng-selected="order.status==='canceled'" value="canceled">Canceled</option>
+          <option ng-selected="order.status==='closed'" value="closed">Completed</option>
         </select>
-        <span class="pull-right">Change status: </span>
+        <button ng-click="changeStatus(order)" class="btn btn-xs btn-warning pull-right" style="margin-right:5px;">Change status</button>
       </div>
       <span>{{subtotal(order) | currency}}</span
       <span> / {{numItems(order)}} items </span>
