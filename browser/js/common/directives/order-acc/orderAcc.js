@@ -17,14 +17,14 @@ app.directive('orderAcc', function(){
       };
       $scope.getUser = function(order){
         UserFactory.getOneUser(order.user).then(function(user){
-          order.user = user.email;
+          order.useremail = user.email;
         });
       };
       $scope.changeStatus = function(order){
         if (order.newStatus)
           return AdminFactory.editOrder(order._id, {status: order.newStatus})
           .then(function(){
-            console.log('ok');
+            order.isUpdated = true;
           });
       };
 

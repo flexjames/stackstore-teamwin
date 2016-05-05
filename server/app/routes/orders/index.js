@@ -33,7 +33,7 @@ router.put('/:orderId', function(req, res, next) {
     if (order) {
       if (req.body.items)
         order.items = req.body.items;
-      if (req.body.status)
+      if (req.body.status && req.user.isAdmin)
         order.status = req.body.status;
       order.save().then(function() {
         res.json(order);
