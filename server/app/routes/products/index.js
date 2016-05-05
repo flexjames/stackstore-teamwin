@@ -41,36 +41,50 @@ router.post('/:id/reviews', function(req,res,next){
 
 //add a new product
 router.post('/', function(req, res, next){
-	Products.create(req.body)
-	.then(function(product){
-		res.json(product);
-	}, next);
+	if (req.user.isAdmin){
+		Products.create(req.body)
+		.then(function(product){
+			res.json(product);
+		}, next);
+	}
+	else {
+		res.sendStatus(401);
+	}
 });
 
 //edit a product
 router.put('/:id', function(req, res, next){
-	Products.findById(req.params.id)
-	.then(function(product){
-		var fields = Object.keys(req.body);
-
-		fields.forEach(function(field){
-			product[field] = req.body[field];
-		});
-
-		product.save()
+	if (req.user.isAdmin){
+		Products.findById(req.params.id)
 		.then(function(product){
-			res.json(product);
-		});
-	}, next);
+			var fields = Object.keys(req.body);
+
+			fields.forEach(function(field){
+				product[field] = req.body[field];
+			});
+
+			product.save()
+			.then(function(product){
+				res.json(product);
+			});
+		}, next);
+	}
+	else{
+		res.sendStatus(401);
+	}
 });
 
 //delete a product
 router.delete('/:id', function(req, res, next){
-	Products.remove({_id: req.params.id})
-	.then(function(){
-		res.sendStatus('204');
-	})
-	.then(null, next);
+	if (req.user.isAdmin){
+		Products.remove({_id: req.params.id})
+		.then(function(){
+			res.sendStatus('204');
+		})
+		.then(null, next);
+	} else{
+		res.sendStatus(401);
+	}
 });
 
 

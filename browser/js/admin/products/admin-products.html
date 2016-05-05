@@ -1,0 +1,17 @@
+<div>
+    <h4>Showing: {{products.length}} products</h4>
+    <ul class="list-group">
+        <li class="list-group-item clearfix" ng-repeat="product in products">
+            <span class="pull-left"><b>{{product.name}}</b> / </span>
+              <span ng-show="product.available" class="bg-success">IN-STOCK</span>
+              <span ng-show="!product.available" class="bg-danger">UNAVAILABLE</span>
+            <div class="btn-group pull-right" role="group">
+                <button class="btn btn-default btn-sm" type="button">Edit... </button>
+                <button class="btn btn-warning btn-sm" ng-show="product.available" ng-click="toggleAvailability(product, false)" type="button">Discontinue </button>
+                <button class="btn btn-success btn-sm" ng-show="!product.available" ng-click="toggleAvailability(product, true)" type="button">Reccontinue </button>
+                <button class="btn btn-danger btn-sm" ng-click="deleteProduct(product)" type="button">Remove</button>
+            </div>
+        </li>
+    </ul>
+    <button class="btn btn-success" type="button">+Add product</button>
+</div>
