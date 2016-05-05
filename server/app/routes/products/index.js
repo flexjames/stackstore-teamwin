@@ -15,7 +15,13 @@ router.param('id', function(req,res,next, id){
 router.get('/', function(req, res, next){
 	Products.find()
 	.then(function(products){
-		res.json(products);
+		if (!req.query.available)
+			res.json(products);
+		else {
+			res.json(products.filter(function(it){
+				return it.available === Boolean(req.query.available);
+			}));
+		}
 	}, next);
 });
 

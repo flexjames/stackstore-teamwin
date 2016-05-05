@@ -20,7 +20,7 @@ app.config(function($stateProvider){
     },
     resolve: {
       products: function(ProductsFactory){
-          return ProductsFactory.fetchAll();
+          return ProductsFactory.fetchAll(false);
       }
     }
   });
