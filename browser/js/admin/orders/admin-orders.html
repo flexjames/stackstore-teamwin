@@ -1,0 +1,14 @@
+<div>
+    <div class="dropdown">
+        <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">Filter by status<span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu">
+            <li role="presentation"><a ng-click="filterOrders('created')">Created</a></li>
+            <li role="presentation"><a ng-click="filterOrders('placed')">Processing</a></li>
+            <li role="presentation"><a ng-click="filterOrders('canceled')">Canceled</a></li>
+            <li role="presentation"><a ng-click="filterOrders('closed')">Completed</a></li>
+            <li role="presentation"><a ng-click="filterOrders()">Clear filter</a></li>
+        </ul>
+    </div>
+    <h4>Showing: {{orders.length}} orders</h4>
+    <order-acc orders="orders" admin="true"></order-acc>
+</div>

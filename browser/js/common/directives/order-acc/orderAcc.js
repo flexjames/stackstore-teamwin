@@ -2,9 +2,11 @@ app.directive('orderAcc', function(){
   return {
     templateUrl: 'js/common/directives/order-acc/order-acc.html',
     scope: {
-      orders: '='
+      orders: '=',
+      admin: '='
     },
-    controller: function($scope, UserFactory, CartFactory, UtilFactory){
+    controller: function($scope, UserFactory, CartFactory, UtilFactory, AdminFactory){
+      $scope.data = {};
       $scope.removeOrder = function(orderId){
         return UserFactory.removeOrder(orderId)
         .then(function(){
@@ -12,6 +14,18 @@ app.directive('orderAcc', function(){
             return it._id !== orderId;
           });
         });
+      };
+      $scope.getUser = function(order){
+        UserFactory.getOneUser(order.user).then(function(user){
+          order.useremail = user.email;
+        });
+      };
+      $scope.changeStatus = function(order){
+        if (order.newStatus)
+          return AdminFactory.editOrder(order._id, {status: order.newStatus})
+          .then(function(){
+            order.isUpdated = true;
+          });
       };
 
       $scope.fetchCart = CartFactory.fetchCart;

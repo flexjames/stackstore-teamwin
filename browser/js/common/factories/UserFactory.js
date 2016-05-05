@@ -6,6 +6,7 @@ app.factory('UserFactory', function($http){
         return res.data;
       });
     },
+    
     removeOrder: function(orderId){
       return $http.delete('/api/orders/' + orderId);
     },

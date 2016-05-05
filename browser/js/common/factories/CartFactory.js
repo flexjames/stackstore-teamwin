@@ -6,7 +6,7 @@ app.factory('CartFactory', function($http, $q, Session){
         var cart = JSON.parse(sessionStorage.cart);
         return resolve(cart);
       }
-      return $http.get('/api/orders').then(function(res){
+      return $http.get('/api/orders/new').then(function(res){
         resolve(res.data);
       });
     });

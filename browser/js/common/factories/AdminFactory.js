@@ -7,6 +7,14 @@ app.factory('AdminFactory', function($http){
 			return response.data;
 		});
 	};
+	AdminFactory.getAllOrders = function(){
+		return $http.get('/api/orders').then(function(res){
+			return res.data;
+		})
+		.catch(function(err){
+			console.log(err);
+		});
+	};
 
 	AdminFactory.deleteUser = function(id){
 		return $http.delete('/api/users/' + id);
@@ -39,12 +47,19 @@ app.factory('AdminFactory', function($http){
 
 	AdminFactory.deleteProduct = function(id){
 		return $http.delete('/api/products/' + id);
-	};		
+	};
 
 	AdminFactory.editProduct = function(id, data){
 		return $http.put('/api/products/' + id)
 		.then(function(response){
 			return response.data;
+		});
+	};
+
+	AdminFactory.editOrder = function(id, data){
+		return $http.put('/api/orders/' + id, data)
+		.then(function(res){
+			return res.data;
 		});
 	};
 
