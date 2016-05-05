@@ -5,10 +5,20 @@ var _ = require('lodash');
 var mongoose = require('mongoose');
 var Order = mongoose.model('Order');
 
-router.get('/', function(req, res, next) {
+router.get('/new', function(req, res, next) {
   //returns a new order
   var order = new Order();
   res.json(order);
+});
+//Admin route
+router.get('/', function(req,res,next){
+  if (req.user.isAdmin){
+    Order.find().then(function(orders){
+      res.json(orders);
+    });
+  } else{
+    res.sendStatus(401);
+  }
 });
 
 router.get('/:userId', function(req, res, next) {
@@ -59,37 +69,37 @@ router.delete('/:orderId', function(req, res, next) {
       res.sendStatus(203);
     }, next);
 });
-
-router.post('/addItem', function(req, res, next) {
-  var p = new Promise(function(resolve, reject) {
-    if (req.session.order) {
-      Order.findById(req.session.order)
-        .then(resolve);
-    } else {
-      var o = new Order();
-      req.session.order = o._id;
-      resolve(o);
-    }
-
-  });
-
-  p.then(function(order) {
-      return order.addItem(req.body);
-    })
-    .then(function(order) {
-      res.send(order);
-    });
-});
-
-router.post('/removeItem', function(req, res) {
-  Order.findById(req.session.order)
-    .then(function(order) {
-      return order.removeItem(req.body);
-    })
-    .then(function(order) {
-      res.send(order);
-    });
-});
+//OM:this can be phased out
+// router.post('/addItem', function(req, res, next) {
+//   var p = new Promise(function(resolve, reject) {
+//     if (req.session.order) {
+//       Order.findById(req.session.order)
+//         .then(resolve);
+//     } else {
+//       var o = new Order();
+//       req.session.order = o._id;
+//       resolve(o);
+//     }
+//
+//   });
+//
+//   p.then(function(order) {
+//       return order.addItem(req.body);
+//     })
+//     .then(function(order) {
+//       res.send(order);
+//     });
+// });
+//
+// router.post('/removeItem', function(req, res) {
+//   Order.findById(req.session.order)
+//     .then(function(order) {
+//       return order.removeItem(req.body);
+//     })
+//     .then(function(order) {
+//       res.send(order);
+//     });
+// });
 
 router.post('/commit', function(req, res, next) {
   Order.findById(req.session.order)

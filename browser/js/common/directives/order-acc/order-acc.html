@@ -2,10 +2,23 @@
   <uib-accordion-group ng-repeat="order in orders">
     <uib-accordion-heading>
       <!-- <span class="badge">Order {{$index + 1}}</span> -->
-      <span class="badge" ng-show="fetchCart()._id === order._id">current order</span>
-      <span>{{subtotal(order) | currency}}</span>
-      <span>/ {{numItems(order)}} items</span>
-      <span class="pull-right">Created: {{order.created | date : 'medium'}}</span>
+      <span class="badge" ng-show="fetchCart()._id === order._id && !admin">current order</span>
+      <b><span>{{order.created | date : 'medium'}}</span></b>
+
+      <div ng-if='admin'>
+        <button class="btn btn-sm btn-warning pull-right" style="margin-left:5px;">Commit</button>
+        <span>Status: {{order.status}} / </span>
+        <span ng-init="getUser(order)">User: {{order.user}}</span>
+        <select class="pull-right">
+          <option>Created</option>
+          <option>Processing</option>
+          <option>Canceled</option>
+          <option>Completed</option>
+        </select>
+        <span class="pull-right">Change status: </span>
+      </div>
+      <span>{{subtotal(order) | currency}}</span
+      <span> / {{numItems(order)}} items </span>
     </uib-accordion-heading>
     <div class="row" ng-show="order.status==='created' && fetchCart()._id !== order._id">
         <div class="col-md-12">
