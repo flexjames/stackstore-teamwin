@@ -6,7 +6,7 @@
               <span ng-show="product.available" class="bg-success">IN-STOCK</span>
               <span ng-show="!product.available" class="bg-danger">UNAVAILABLE</span>
             <div class="btn-group pull-right" role="group">
-                <button class="btn btn-default btn-sm" type="button">Edit... </button>
+                <button class="btn btn-default btn-sm" ui-sref="admin.productsEdit({productId: product._id})" type="button">Edit... </button>
                 <button class="btn btn-warning btn-sm" ng-show="product.available" ng-click="toggleAvailability(product, false)" type="button">Discontinue </button>
                 <button class="btn btn-success btn-sm" ng-show="!product.available" ng-click="toggleAvailability(product, true)" type="button">Reccontinue </button>
                 <button class="btn btn-danger btn-sm" ng-click="deleteProduct(product)" type="button">Remove</button>

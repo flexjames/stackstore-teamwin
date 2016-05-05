@@ -1,0 +1,29 @@
+<div class="container">
+	<br>
+	<div class="alert alert-danger" role="alert">
+		<h5>Product edit mode</h5>
+	</div>
+	<div id="product" class="row">
+		<div class="col-xs-4">
+			<div class="form-group col-xs-8 col-xs-offset-2">
+				<input class="input-lg" type="text" ng-model="product.name" placeholder="product name"></input>
+				<span>
+				    <stars-rating avgstars="product.reviews" hideborder="true"></stars-rating>
+				</span>
+			</div>
+			<img class="img-thumbnail" src="{{product.imageUrl[0]}}">
+			<button class="btn btn-block btn-success">Add new image...</button>
+		</div>
+		<div class="col-xs-4">
+			<span>Price:</span>
+			<input type="text" class="input-lg" ng-model="product.price" placeholder="price"></input>
+			<p id="availabilityLabel" ng-show="product.available">Currently Available.</p>
+			<span>Quantity:</span>
+			<input type="text" class="input-lg" ng-model="product.quantity"></input>
+			<p ng-show="!product.available" class="text-danger"><b>UNAVAILABLE</b></p>
+			<span>Description:</span>
+			<textarea class="form-control" rows="10" ng-model="product.description"></textarea>
+		</div>
+	</div>
+	<div id="divider" class="col-xs-12"></div>
+</div>
