@@ -18,6 +18,13 @@ router.param('id', function (req, res, next, id) {
 	.then(null, next);
 });
 
+router.get('/', function(req,res,next){
+	mongoose.model('User').find()
+	.then(function(users){
+		res.json(users);
+	}, next);
+});
+
 router.get('/:id', function(req,res,next){
 	res.json(req.requestedUser);
 });
@@ -44,6 +51,7 @@ router.put('/:id', function (req, res, next) {
 	_.extend(req.requestedUser, req.body);
 	req.requestedUser.save()
 	.then(function (user) {
+		console.log(user);
 		res.json(user);
 	})
 	.then(null, next);

@@ -1,6 +1,13 @@
 app.factory('AdminFactory', function($http){
 	var AdminFactory = {};
 
+	AdminFactory.getUsers = function(){
+		return $http.get('/api/users/')
+		.then(function(response){
+			return response.data;
+		});
+	};
+
 	AdminFactory.createUser = function(data){
 		return $http.post('/api/users', data)
 		.then(function(response){
@@ -21,7 +28,7 @@ app.factory('AdminFactory', function($http){
 	};
 
 	AdminFactory.editUser = function(id, data){
-		return $http.put('/api/users/' + id)
+		return $http.put('/api/users/' + id, data)
 		.then(function(response){
 			return response.data;
 		});
