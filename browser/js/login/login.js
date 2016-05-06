@@ -12,23 +12,6 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, AUTH_EVENTS, 
 
     $scope.$on(AUTH_EVENTS.loginSuccess, function(){
       return CartFactory.initCart();
-
-      // if (CartFactory.isCart()) {//If anon user has begun filling cart
-      //   return CartFactory.sendCartToApi().then(function(cart){
-      //     CartFactory.setCart(cart);
-      //   });//TO DO: add merging of carts
-      // }
-      // else if (!CartFactory.isCart() && user) {
-      //   return CartFactory.fetchOrders(user._id).then(function(orders){
-      //     if (orders.length)
-      //       CartFactory.setCart(orders[orders.length -1]);
-      //     else {
-      //       return CartFactory.sendCartToApi().then(function(cart){
-      //         return CartFactory.setCart(cart);
-      //       });
-      //     }
-      //   });
-      // }
     });
 
     $scope.login = {};
