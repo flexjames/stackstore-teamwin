@@ -1,0 +1,12 @@
+<div class="container">
+    <h1>Site Adminstration
+    </h1>
+    <div>
+        <ul class="nav nav-tabs nav-justified">
+            <li ui-sref-active="active" ng-repeat="link in links">
+                <a role="tab" ui-sref="{{link.state}}">{{link.text}}</a>
+            </li>
+        </ul>
+        <ui-view></ui-view>
+    </div>
+</div>

@@ -6,10 +6,18 @@ app.config(function($stateProvider){
         $scope.cart = cart;
         $scope.shipping = {};
 
+        $scope.untouch = function(){
+          $scope.ShippingForm.$setUntouched();
+        }
+
         $scope.sendOrder = function(){
           return CartFactory.submitCart($scope.shipping).then(function(){
             CartFactory.removeCart();
-            $state.go('home');
+            CartFactory.sendCartToApi().then(function(cart){
+              CartFactory.setCart(cart);
+              $state.go('home');
+            });
+
           });
         };
 

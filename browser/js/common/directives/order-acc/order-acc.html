@@ -2,13 +2,25 @@
   <uib-accordion-group ng-repeat="order in orders">
     <uib-accordion-heading>
       <!-- <span class="badge">Order {{$index + 1}}</span> -->
-      <span class="badge" ng-show="fetchCart()._id === order._id">current order</span>
-      <span>{{subtotal(order) | currency}}</span>
-      <span>/ {{numItems(order)}} items</span>
-      <span class="pull-right">Created: {{order.created | date : 'medium'}}</span>
+      <span class="badge" ng-show="fetchCart()._id === order._id && !admin">current order</span>
+      <b><span>{{order.created | date : 'medium'}}</span></b>
+
+      <div ng-if='admin'>
+        <span ng-init="getUser(order)">User: {{order.useremail}}</span>
+        <select class="pull-right" ng-model="order.newStatus">
+          <option ng-selected="order.status==='created'" value="created">Created</option>
+          <option ng-selected="order.status==='placed'" value="placed">Processing</option>
+          <option ng-selected="order.status==='canceled'" value="canceled">Canceled</option>
+          <option ng-selected="order.status==='closed'" value="closed">Completed</option>
+        </select>
+        <button ng-click="changeStatus(order)" class="btn btn-xs btn-danger pull-right" style="margin-right:5px;">Change status</button>
+        <span class="badge pull-right" ng-show="order.isUpdated">updated</span>
+      </div>
+      <span>{{subtotal(order) | currency}}</span
+      <span> / {{numItems(order)}} items </span>
     </uib-accordion-heading>
     <div class="row" ng-show="order.status==='created' && fetchCart()._id !== order._id">
-        <div class="col-md-12">
+        <div class="col-md-12" ng-show="!admin">
             <button class="btn btn-success btn-xs pull-left" type="button" ng-click="setCart(order)">Retrieve this order</button>
             <button class="btn btn-danger btn-xs pull-right" ng-click="removeOrder(order._id)" type="button">Delete</button>
         </div>
@@ -18,6 +30,8 @@
           <span><a ui-sref="product-detail({productId: item.product._id})">{{item.product.name}}</a>: x{{item.quantity}} / {{item.price | currency}} each</span>
         </li>
     </ul>
+    <span ng-show="order.email">Shipping: {{order.email}} / </span>
+    <span ng-show="order.address">{{order.address}}</span>
   </uib-accordion-group>
   <h4 ng-show="!orders.length">There are no orders</h4>
 </uib-accordion>

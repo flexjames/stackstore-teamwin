@@ -11,7 +11,9 @@
     <small ng-show="product.reviews.length">({{product.reviews.length}})</small>
     <div>
       <span class="bg-danger">Our price: {{product.price | currency}}</span>
-      <button class="btn btn-success btn-xs" ng-show="!nInCart(product)" ng-click="addToCart(product)">Add to cart</button>
-      <button class="btn btn-danger btn-xs" ng-show="nInCart(product)" ng-click="addToCart(product)">+Add ({{nInCart(product)}} in cart)</button>
+      <div>
+        <button class="btn btn-success btn-xs" ng-show="!nInCart(product)" ng-click="addToCart(product)">Add to cart</button>
+        <button class="btn btn-danger btn-xs" ng-show="nInCart(product)" ng-click="addToCart(product)">+Add ({{nInCart(product)}} in cart)</button>
+      </div>
     </div>
 </div>

@@ -33,12 +33,19 @@ var productSchema = mongoose.Schema({
    description: String,
    price: Number,
    quantity: Number,
-   imageUrl: [String],
+   imageUrl: {
+     type: [String],
+     default: ['http://placehold.it/350x350']
+   },
    category: [{
        //movie names?
        type: mongoose.Schema.Types.ObjectId
    }],
-   reviews: [mongoose.model('Review').schema]
+   reviews: [mongoose.model('Review').schema],
+   available: {
+     type: Boolean,
+     default: true
+   }
 });
 
 //filter products by Category

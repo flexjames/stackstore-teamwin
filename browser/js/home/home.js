@@ -30,7 +30,7 @@ app.config(function($stateProvider) {
         },
         resolve: {
             products: function(ProductsFactory) {
-                return ProductsFactory.fetchAll();
+                return ProductsFactory.fetchAll(true);
             },
             categories: function(CategoryFactory) {
                 return CategoryFactory.fetchAll();

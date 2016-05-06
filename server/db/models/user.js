@@ -6,7 +6,8 @@ var Promise = require('bluebird');
 
 var schema = new mongoose.Schema({
     email: {
-        type: String
+        type: String,
+        unique: true
     },
     password: {
         type: String
