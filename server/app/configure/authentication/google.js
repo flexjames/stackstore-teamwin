@@ -40,8 +40,8 @@ module.exports = function (app) {
             });
 
     };
-
-    passport.use(new GoogleStrategy(googleCredentials, verifyCallback));
+    if (process.env.NODE_ENV)
+      passport.use(new GoogleStrategy(googleCredentials, verifyCallback));
 
     app.get('/auth/google', passport.authenticate('google', {
         scope: [
