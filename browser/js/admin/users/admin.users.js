@@ -3,7 +3,7 @@ app.config(function($stateProvider){
 	.state('admin.users', {
 	  templateUrl: '/js/admin/users/admin-users.html',
 	  url: '/users',
-	  controller: function(users, $scope, AdminFactory){
+	  controller: function(users, $scope, AdminFactory, Session){
 	  	$scope.users = users;
 
 	  	$scope.removeUser = function(id){
@@ -16,14 +16,15 @@ app.config(function($stateProvider){
 	  		});
 	  	};
 
-	  	$scope.resetPW = function(id, data){
-	  		AdminFactory.editUser(id, data);
-	  	};
+			$scope.currentUser = function(){
+				return Session.user;
+			};
 
-	  	$scope.promoteUser = function(_user, data){
+	  	$scope.editUser = function(_user, data){
 	  		AdminFactory.editUser(_user._id, data)
 	  		.then(function(user){
-	  			return _user.isAdmin = user.isAdmin;
+	  			_user.isAdmin = user.isAdmin;
+					_user.passwordReset = user.passwordReset;
 	  		});
 	  	};
 	  },
@@ -32,5 +33,5 @@ app.config(function($stateProvider){
 	  		return AdminFactory.getUsers();
 	  	}
 	  }
-	})
-})
+	});
+});

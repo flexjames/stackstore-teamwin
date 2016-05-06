@@ -57,7 +57,7 @@ app.factory('AdminFactory', function($http){
 	};
 
 	AdminFactory.editProduct = function(id, data){
-		return $http.put('/api/products/' + id)
+		return $http.put('/api/products/' + id, data)
 		.then(function(response){
 			return response.data;
 		});

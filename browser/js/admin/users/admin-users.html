@@ -3,11 +3,14 @@
     <ul class="list-group">
         <li class="list-group-item clearfix" ng-repeat="user in users">
             <h5 class="pull-left">{{user.email}}
-            </h5>
+            </h5><span class="badge pull-left" ng-show="user.passwordReset">Reset requested</span>
             <div class="btn-group pull-right" role="group">
-                <button class="btn btn-sm" ng-class="user.isAdmin ? 'btn-success' : 'btn-default'" type="button" ng-disabled="user.isAdmin === true" ng-click="promoteUser(user, {isAdmin: true})">Promote</button>
-                <button class="btn btn-default btn-sm" type="button" ng-click="resetPW(user._id, {passwordReset: true})">Reset Password</button>
-                <button class="btn btn-danger btn-sm" type="button" ng-click="removeUser(user._id)">Remove
+
+                <button class="btn btn-sm btn-success" type="button" ng-show="!user.isAdmin" ng-disabled="user._id === currentUser()._id" ng-click="editUser(user, {isAdmin: true})">Promote</button>
+                <button class="btn btn-sm btn-danger" type="button" ng-show="user.isAdmin" ng-disabled="user._id === currentUser()._id" ng-click="editUser(user, {isAdmin: false})">Demote</button>
+
+                <button class="btn btn-sm" ng-class="{'btn-warning': user.passwordReset}" type="button" ng-click="editUser(user, {passwordReset: true})">Reset Password</button>
+                <button class="btn btn-danger btn-sm" type="button" ng-disabled="user._id === currentUser()._id" ng-click="removeUser(user._id)">Remove
                 </button>
             </div>
         </li>

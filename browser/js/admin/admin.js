@@ -13,10 +13,6 @@ app.config(function($stateProvider){
         ];
       }
     })
-    .state('admin.products', {
-      templateUrl: '/js/admin/admin-products.html',
-      url: '/products'
-    })
     .state('admin.categories', {
       templateUrl: '/js/admin/admin-categories.html',
       url: '/categories'

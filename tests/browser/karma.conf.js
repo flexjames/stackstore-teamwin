@@ -13,7 +13,8 @@ module.exports = function (config) {
         'public/main.js',
         'node_modules/sinon/pkg/sinon.js',
         'node_modules/angular-mocks/angular-mocks.js',
-        'tests/browser/**/*.js'
+        'tests/browser/**/*.js',
+        'tests/browser/env.js'
     ];
 
     var excludeFiles = [
@@ -21,7 +22,7 @@ module.exports = function (config) {
     ];
 
     var configObj = {
-        browsers: ['PhantomJS'],
+        browsers: ['Chrome'],
         frameworks: ['mocha', 'chai'],
         basePath: path.join(__dirname, '../../'),
         files: filesCollection,

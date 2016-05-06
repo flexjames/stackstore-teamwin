@@ -10,7 +10,7 @@ var ENABLED_AUTH_STRATEGIES = [
     'local',
     //'twitter',
     //'facebook',
-    //'google'
+    'google'
 ];
 
 module.exports = function (app) {
@@ -19,7 +19,7 @@ module.exports = function (app) {
     // Our sessions will get stored in Mongo using the same connection from
     // mongoose. Check out the sessions collection in your MongoCLI.
     app.use(session({
-        secret: app.getValue('env').SESSION_SECRET,
+        secret: 'hello',
         store: new MongoStore({mongooseConnection: mongoose.connection}),
         resave: false,
         saveUninitialized: false
