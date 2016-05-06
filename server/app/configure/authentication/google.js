@@ -17,7 +17,9 @@ module.exports = function (app) {
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
 
-        var emails = profile.emails.map(function(email){return email.value;});
+        var emails = profile.emails.map(function(email){
+          return email.value;
+        });
 
         UserModel.findOne({ email: {$in: emails }}).exec()
             .then(function (user) {
