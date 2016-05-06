@@ -20,12 +20,11 @@ app.config(function($stateProvider){
 	  		AdminFactory.editUser(id, data);
 	  	};
 
-	  	$scope.promoteUser = function(id, data){
-	  		AdminFactory.editUser(id, data)
+	  	$scope.promoteUser = function(_user, data){
+	  		AdminFactory.editUser(_user._id, data)
 	  		.then(function(user){
-	  			return $scope.users[user._id] = user;
+	  			return _user.isAdmin = user.isAdmin;
 	  		});
-	  		$window.location.reload();
 	  	};
 	  },
 	  resolve: {
