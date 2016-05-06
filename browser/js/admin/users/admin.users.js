@@ -3,7 +3,7 @@ app.config(function($stateProvider){
 	.state('admin.users', {
 	  templateUrl: '/js/admin/users/admin-users.html',
 	  url: '/users',
-	  controller: function(users, $scope, AdminFactory, $window){
+	  controller: function(users, $scope, AdminFactory){
 	  	$scope.users = users;
 
 	  	$scope.removeUser = function(id){

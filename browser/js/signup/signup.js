@@ -2,15 +2,36 @@ app.config(function($stateProvider){
 	$stateProvider.state('signup', {
 		url:'/signup',
 		templateUrl: 'js/signup/signup.html',
-		controller: function($scope, $state, AuthService, AdminFactory, CartFactory){
+		controller: function($scope, $state, AuthService, AdminFactory, CartFactory, Session){
 			$scope.newUser = {
 				email: '',
 				password: ''
 			};
 
+			console.log(Session.user);
+
+			$scope.checkUser = function(){
+				if (Session.user)
+					return true;
+				else
+					return false;
+			}
+
 			$scope.changeValue = function(){
 				$scope.emailTaken = false;
 				$scope.NewUserForm.$setUntouched();
+			};
+
+			//use Session.user to check if a user is coming
+			//with a passwordReset:true, use AdminFActory
+			//to do a put request and edit passwordReset
+			//and update new password. 
+
+			$scope.updatePW = function(){
+				AdminFactory.editUser(Session.user._id, {password: $scope.newUser.password, passwordReset: false})
+				.then(function(user){
+					$state.go('home');
+				});
 			};
 
 			$scope.createUser = function(){
