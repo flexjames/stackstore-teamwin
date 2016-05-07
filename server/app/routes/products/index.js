@@ -4,9 +4,8 @@
 var path = require('path');
 var router = require('express').Router();
 var Products = require('mongoose').model('Product');
-
-var multiparty = require('connect-multiparty'),
-    multipartyMiddleware = multiparty({ uploadDir: path.join(__dirname, '../../../../browser/images/products') });
+var fs = require('fs');
+var multipart = require('multiparty');
 
 router.param('id', function(req,res,next, id){
 	Products.findById(id).then(function(product){
@@ -40,15 +39,6 @@ router.post('/:id/reviews', function(req,res,next){
 	}, next);
 });
 
-//get by category
-//OM: this route will never be hit, category filtering will occur on the client
-// router.get('/:category', function(req, res, next){
-// 	Products.getByCategory(req.params.category) //look up category by name
-// 	.then(function(products){
-// 		res.json(products);
-// 	}, next);
-// });
-
 //add a new product
 router.post('/', function(req, res, next){
 	if (req.user.isAdmin){
@@ -63,12 +53,38 @@ router.post('/', function(req, res, next){
 });
 
 //upload image
-router.post('/image', multipartyMiddleware, function(req, res){
-	console.log(req.body, req.files);
-	var file = req.files.file;
-	console.log(file.name);
-	console.log(file.type);
-	res.status(200).send('OK');
+router.post('/image/:fileName', function(req, res){
+  var size = '';
+  var file_name = req.params.fileName;
+  var destination_path = '';
+
+  // Instantiation in order to use the API options multiparty.Form({options})
+  var form = new multipart.Form();
+
+  form.on('error', function (err) {
+    console.log('Error parsing form: ' + err.stack);
+  });
+
+  form.on('file', function (name, file) {
+    var temporal_path = file.path;
+    var extension = file.path.substring(file.path.lastIndexOf('.'));
+    destination_path = path.join(__dirname, '../../../../browser/images/products/', file_name + extension);
+    var input_stream = fs.createReadStream(temporal_path);
+    var output_stream = fs.createWriteStream(destination_path);
+    input_stream.pipe(output_stream);
+
+    input_stream.on('end',function() {
+        fs.unlinkSync(temporal_path);
+        console.log('Uploaded : ', file_name, size / 1024 | 0, 'kb', file.path, destination_path);
+        });
+  });
+
+  form.on('close', function(){
+    res.end('Uploaded!');
+  });
+
+  form.parse(req);
+
 });
 
 //edit a product

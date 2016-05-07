@@ -47,7 +47,7 @@ app.config(function($stateProvider){
         // upload on file select or drop
         $scope.upload = function (file) {
             return Upload.upload({
-                url: '/api/products/image',
+                url: '/api/products/image/' + file.name.substring(0, file.name.lastIndexOf('.')),
                 file: file
             }).then(function (resp) {
                 console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
