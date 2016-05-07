@@ -1,8 +1,12 @@
 'use strict';
 
 //this  will be the /api/products/ route
+var path = require('path');
 var router = require('express').Router();
 var Products = require('mongoose').model('Product');
+
+var multiparty = require('connect-multiparty'),
+    multipartyMiddleware = multiparty({ uploadDir: path.join(__dirname, '../../../../browser/images/products') });
 
 router.param('id', function(req,res,next, id){
 	Products.findById(id).then(function(product){
@@ -56,6 +60,15 @@ router.post('/', function(req, res, next){
 	else {
 		res.sendStatus(401);
 	}
+});
+
+//upload image
+router.post('/image', multipartyMiddleware, function(req, res){
+	console.log(req.body, req.files);
+	var file = req.files.file;
+	console.log(file.name);
+	console.log(file.type);
+	res.status(200).send('OK');
 });
 
 //edit a product
