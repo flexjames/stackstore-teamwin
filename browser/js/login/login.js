@@ -11,7 +11,11 @@ app.config(function ($stateProvider) {
 app.controller('LoginCtrl', function ($scope, AuthService, $state, AUTH_EVENTS, Session, CartFactory) {
 
     $scope.$on(AUTH_EVENTS.loginSuccess, function(){
-      return CartFactory.initCart();
+      return CartFactory.initCart()
+      .then(function(){
+        if (Session.user.passwordReset)
+          $state.go('signup');
+      });
     });
 
     $scope.login = {};
