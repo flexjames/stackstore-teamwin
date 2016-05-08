@@ -1,0 +1,29 @@
+{{categories}}
+
+<div>
+    <h4>Showing: {{categories.length}} categories</h4>
+    <ul class="list-group">
+        <li class="list-group-item clearfix" ng-repeat="category in categories">
+           <h5 class="pull-left">{{category.name}}</h5>
+            <div class="btn-group pull-right" role="group">
+                <button class="btn btn-default btn-sm" type="button">Add picture...</button>
+                <button class="btn btn-danger btn-sm" type="button" ng-click="removeCat(category)">Remove </button>
+            </div>
+        </li>
+    </ul>
+
+    <ul class="list-group" ng-show="showCreate === true">
+        <li class="list-group-item clearfix">
+            <input type="text" name="categoryName" ng-model="catName" placeholder="Enter a category name" required/>
+            <div class="btn-group pull-right" role="group">
+                <button class="btn btn-default btn-sm" ngf-select="setImageUrl(category)" ng-model="file" name="file" ngf-pattern="'image/*'"
+                ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+                ngf-resize="{width: 350, height: 350}">Add picture...</button>
+                <button class="btn btn-success btn-sm" type="button" ng-disabled="!catName"
+                ng-click="addCat(catName)">Add Category</button>
+            </div>
+        </li>
+    </ul>
+
+    <button class="btn btn-default" type="button" ng-click="createCat()">+Create category</button>
+</div>
