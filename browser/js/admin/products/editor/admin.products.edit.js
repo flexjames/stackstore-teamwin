@@ -3,7 +3,7 @@ app.config(function($stateProvider){
     .state('admin.productsEdit',{
       url: '/products/:productId',
       templateUrl: '/js/admin/products/editor/admin-product-edit.html',
-      controller: function(product, categories, $scope, $state, AdminFactory, Upload){
+      controller: function(product, categories, $scope, $state, AdminFactory, Upload, $q){
         $scope.product = product;
         $scope.categories = categories;
         $scope.checkCategory = function(category){
@@ -17,13 +17,8 @@ app.config(function($stateProvider){
             $scope.product.category.splice(idx, 1);
         };
         $scope.saveChanges = function(){
-          try{
-            $scope.product.price = Number($scope.product.price);
-            $scope.product.quantity = Number($scope.product.quantity);
-          }catch(err){
-            $scope.err = true;
-            return;
-          }
+          $scope.product.price = Number($scope.product.price);
+          $scope.product.quantity = Number($scope.product.quantity);
           return $scope.submit()
           .then(function(){
             console.log('editing product');
@@ -32,7 +27,8 @@ app.config(function($stateProvider){
           .then(function(){
             $state.go('admin.products');
           });
-        };
+
+      };
 
         $scope.setImageUrl = function(){
           var extension = $scope.file.name.substring($scope.file.name.lastIndexOf('.'));
@@ -44,6 +40,7 @@ app.config(function($stateProvider){
           if ($scope.form.file.$valid && $scope.file) {
             return $scope.upload($scope.file);
           }
+          return $q.resolve();
         };
 
         // upload on file select or drop
