@@ -12,8 +12,12 @@
 				    <stars-rating avgstars="product.reviews" hideborder="true"></stars-rating>
 				</span>
 			</div>
-			<img class="img-thumbnail" src="{{product.imageUrl[0]}}">
-			<button class="btn btn-block btn-success">Add new image...</button>
+			<img class="img-thumbnail" ngf-thumbnail="file || '{{product.imageUrl[0]}}'">
+			<form name="form">
+			  <button class="btn btn-block btn-success" ngf-select="setImageUrl()" ng-model="file" name="file" ngf-pattern="'image/*'"
+			    ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+			    ngf-resize="{width: 350, height: 350}">Select image...</button>
+			</form>
 		</div>
 		<div class="col-xs-4">
 			<p id="availabilityLabel" ng-show="product.available">Currently Available.</p>
