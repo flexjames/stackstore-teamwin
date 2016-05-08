@@ -53,9 +53,9 @@ router.post('/', function(req, res, next){
 });
 
 //upload image
-router.post('/image/:fileName', function(req, res){
+router.post('/:id/image', function(req, res){
   var size = '';
-  var file_name = req.params.fileName;
+  var file_name = req.params.id;
   var destination_path = '';
 
   // Instantiation in order to use the API options multiparty.Form({options})
@@ -68,7 +68,7 @@ router.post('/image/:fileName', function(req, res){
   form.on('file', function (name, file) {
     var temporal_path = file.path;
     var extension = file.path.substring(file.path.lastIndexOf('.'));
-    destination_path = path.join(__dirname, '../../../../browser/images/products/', file_name + extension);
+    destination_path = path.join(__dirname, '../../../../browser/images/products/uploads/', file_name + extension);
     var input_stream = fs.createReadStream(temporal_path);
     var output_stream = fs.createWriteStream(destination_path);
     input_stream.pipe(output_stream);

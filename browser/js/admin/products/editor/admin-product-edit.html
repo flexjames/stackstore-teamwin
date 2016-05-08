@@ -14,9 +14,9 @@
 			</div>
 			<img class="img-thumbnail" ngf-thumbnail="file || '{{product.imageUrl[0]}}'">
 			<form name="form">
-			  <div class="button" ngf-select="selectImageUrl(file.name)" ng-model="file" name="file" ngf-pattern="'image/*'"
+			  <div class="button" ngf-select="setImageUrl()" ng-model="file" name="file" ngf-pattern="'image/*'"
 			    ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" 
-			    ngf-resize="{width: 100, height: 100}">Select image</div>
+			    ngf-resize="{width: 350, height: 350}">Select image</div>
 			</form>
 		</div>
 		<div class="col-xs-4">

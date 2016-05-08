@@ -26,6 +26,7 @@ app.config(function($stateProvider){
           }
           return $scope.submit()
           .then(function(){
+            console.log('editing product');
             return AdminFactory.editProduct($scope.product._id, $scope.product);
           })
           .then(function(){
@@ -33,8 +34,9 @@ app.config(function($stateProvider){
           });
         };
 
-        $scope.selectImageUrl = function(url){
-          $scope.product.imageUrl = "/images/products/" + url;
+        $scope.setImageUrl = function(){
+          var extension = $scope.file.name.substring($scope.file.name.lastIndexOf('.'));
+          $scope.product.imageUrl = "/images/products/uploads/" + $scope.product._id + extension;
         };
 
         // upload later on form submit or something similar
@@ -47,15 +49,8 @@ app.config(function($stateProvider){
         // upload on file select or drop
         $scope.upload = function (file) {
             return Upload.upload({
-                url: '/api/products/image/' + file.name.substring(0, file.name.lastIndexOf('.')),
+                url: '/api/products/' + $scope.product._id + '/image',
                 file: file
-            }).then(function (resp) {
-                console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-            }, function (resp) {
-                console.log('Error status: ' + resp.status);
-            }, function (evt) {
-                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
             });
         };
       },
