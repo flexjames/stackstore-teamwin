@@ -2,7 +2,9 @@ app.factory('ProductsFactory', function($http){
 	var ProductsFactory = {};
 
 	ProductsFactory.fetchAll = function(getAvailable){
-		var url = getAvailable ? '/api/products?available=true' : '/api/products';
+		var url = '/api/products';
+    if(getAvailable)
+      url += '?available=true';
 		return $http.get(url)
 		.then(function(response){
 			return response.data;
@@ -37,7 +39,7 @@ app.factory('ProductsFactory', function($http){
 	ProductsFactory.edit = function(id, data){
 		return $http.put('/api/products/:id', data)
 		.then(function(response){
-			return response;
+			return response.data;
 		});
 	};
 

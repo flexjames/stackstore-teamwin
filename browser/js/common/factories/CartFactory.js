@@ -1,7 +1,12 @@
+//i like the idea of putting the CartFactory underneath cart.. easier to locate..
+//same with other factories.
+//alot going on here.. seems like you might want to have an Order Factory as well
 app.factory('CartFactory', function($http, $q, Session){
 
   function getCart(){
+    //interesting-- I didn't know $q supported this type of constructor
     return $q(function(resolve, reject){
+      //instead of using sessionStorage directly-- inject the $window object-- and access it by using $window.sessionStorage-- this way you can write tests and you are not dependent on global window object
       if (sessionStorage.cart){
         var cart = JSON.parse(sessionStorage.cart);
         return resolve(cart);
@@ -22,14 +27,13 @@ app.factory('CartFactory', function($http, $q, Session){
         }
         resolve(cart);
       });
-
-
-
-
   }
+
   function checkLocal(){
     return !!sessionStorage.cart;
   }
+
+  //maybe addToCart and removeFromCart can be refactored?
   return {
     addToCart: function(product, quantity){
         return getCart().then(function(cart){
@@ -97,7 +101,7 @@ app.factory('CartFactory', function($http, $q, Session){
     },
     removeCart: function(){
       if (checkLocal())
-        delete sessionStorage['cart'];
+        delete sessionStorage['cart'];//i think this api has a removeItem method
     },
     setCart: function(cart){
       sessionStorage.cart = JSON.stringify(cart);

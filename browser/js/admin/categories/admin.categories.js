@@ -8,7 +8,7 @@ app.config(function($stateProvider){
 
 			$scope.createCat = function(){
 				$scope.showCreate = true;
-			}
+			};
 
 			$scope.addCat = function(name){
 				$scope.catName = null;
@@ -16,8 +16,8 @@ app.config(function($stateProvider){
 				AdminFactory.createCat(name)
 				.then(function(cat){
 					$scope.categories.push(cat);
-				})
-			}
+				});
+			};
 
 			$scope.removeCat = function(cat){
 				AdminFactory.deleteCat(cat._id)
@@ -36,4 +36,4 @@ app.config(function($stateProvider){
 			}
 		}
 	})
-})
+});

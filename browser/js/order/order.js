@@ -3,6 +3,7 @@ app.config(function($stateProvider){
       templateUrl: '/js/order/order.html',
       url:'/users/:userId',
       controller: function(orders, $scope){
+        //be consistent - camel case or snake case
         $scope.placed_orders = orders.filter(function(it){
           return it.status === 'placed';
         });
@@ -12,6 +13,7 @@ app.config(function($stateProvider){
       },
       resolve: {
         orders: function(UserFactory, $stateParams){
+          //you could also do your filtering here.. or better yet have the factory do it... 
           return UserFactory.getUserOrders($stateParams.userId);
         }
       }
