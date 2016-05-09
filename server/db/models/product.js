@@ -7,7 +7,10 @@ var categorySchema = mongoose.Schema({
     unique: true
   },
   description: String,
-  imageUrl: String
+  imageUrl: {
+    type: String,
+    default: '/images/categories/placeholder.jpg'
+  }
 });
 
 //pre-remove hook to delete all references to the category being removed
