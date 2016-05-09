@@ -72,37 +72,6 @@ router.delete('/:orderId', function(req, res, next) {
       res.sendStatus(203);
     }, next);
 });
-//OM:this can be phased out
-// router.post('/addItem', function(req, res, next) {
-//   var p = new Promise(function(resolve, reject) {
-//     if (req.session.order) {
-//       Order.findById(req.session.order)
-//         .then(resolve);
-//     } else {
-//       var o = new Order();
-//       req.session.order = o._id;
-//       resolve(o);
-//     }
-//
-//   });
-//
-//   p.then(function(order) {
-//       return order.addItem(req.body);
-//     })
-//     .then(function(order) {
-//       res.send(order);
-//     });
-// });
-//
-// router.post('/removeItem', function(req, res) {
-//   Order.findById(req.session.order)
-//     .then(function(order) {
-//       return order.removeItem(req.body);
-//     })
-//     .then(function(order) {
-//       res.send(order);
-//     });
-// });
 
 router.post('/commit', function(req, res, next) {
   Order.findById(req.session.order)

@@ -1,0 +1,18 @@
+p In your order:
+
+table
+  tr
+    th Product
+    th Quantity
+    th Unit price
+    th Total price
+  for item in order.items 
+   tr
+    td= item.product.name
+    td= item.quantity
+    td= item.price
+    td= item.quantity * item.price
+
+p Your address is #{order.address}.
+
+p Thank you!

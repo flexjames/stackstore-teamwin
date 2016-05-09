@@ -1,4 +1,8 @@
 var nodemailer = require('nodemailer');
+var EmailTemplate = require('email-templates').EmailTemplate;
+var path = require('path')
+
+var templateDir = path.join(__dirname, 'templates', 'confirmation');
 
 var transporter = nodemailer.createTransport({
   service: 'Mailgun',
@@ -16,7 +20,4 @@ transporter.verify(function(error, success) {
    }
 });
 
-module.exports.sendOrderConfirmation = transporter.templateSender({
-  subject: 'Your order has been placed!',
-  text: 'Your order has been placed!'
-}, { from: 'example@email.com' });
+module.exports.sendOrderConfirmation = transporter.templateSender(new EmailTemplate(templateDir), { from: 'testing@fsa.com' });
