@@ -1,10 +1,11 @@
 <div class="container">
-	<h3>Sign Up</h3>
+	<h3 ng-hide="checkUser()">Sign Up</h3>
+	<h3 ng-show="checkUser()">Update Password</h3>
 	<div class='well'>
 		<form class="form" name="NewUserForm" novalidate>
 			<div class='form-group'>
-				<label for='email'>E-mail Address</label>
-				<input class='form-control' name='userEmail' type='email' ng-change="changeValue()" ng-model='newUser.email' required/>
+				<label for='email' ng-hide="checkUser()">E-mail Address</label>
+				<input class='form-control' name='userEmail' type='email' ng-change="changeValue()" ng-model='newUser.email' ng-hide="checkUser()" required/>
 				<p class="text-danger" ng-show="NewUserForm.userEmail.$invalid && NewUserForm.userEmail.$touched">Please enter a valid email address</p>
 				<p class="text-danger" ng-show="emailTaken === true">Email address is already registered</p>
 			</div>
@@ -14,6 +15,7 @@
 			</div>
 		</form>
 		<button class='btn btn-danger' ui-sref="home">Cancel</button>
-		<button class='btn btn-success' ng-disabled="NewUserForm.$invalid" ng-click='createUser()'>Create Account</button>
+		<button class='btn btn-success' ng-disabled="NewUserForm.$invalid" ng-click='createUser()' ng-hide="checkUser()">Create Account</button>
+		<button class='btn btn-success' ng-click="updatePW()" ng-show="checkUser()">Update Password</button>
 	</div>
 </div>

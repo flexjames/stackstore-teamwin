@@ -12,9 +12,5 @@ app.config(function($stateProvider){
           {text: 'Categories', state: 'admin.categories'}
         ];
       }
-    })
-    .state('admin.users', {
-      templateUrl: '/js/admin/admin-users.html',
-      url: '/users'
-    })
+    });
 });

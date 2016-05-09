@@ -1,0 +1,18 @@
+<div>
+    <h4>Showing: {{users.length}} users</h4>
+    <ul class="list-group">
+        <li class="list-group-item clearfix" ng-repeat="user in users">
+            <h5 class="pull-left">{{user.email}}
+            </h5><span class="badge pull-left" ng-show="user.passwordReset">Reset requested</span>
+            <div class="btn-group pull-right" role="group">
+
+                <button class="btn btn-sm btn-success" type="button" ng-show="!user.isAdmin" ng-disabled="user._id === currentUser()._id" ng-click="editUser(user, {isAdmin: true})">Promote</button>
+                <button class="btn btn-sm btn-danger" type="button" ng-show="user.isAdmin" ng-disabled="user._id === currentUser()._id" ng-click="editUser(user, {isAdmin: false})">Demote</button>
+
+                <button class="btn btn-sm" ng-class="{'btn-warning': user.passwordReset}" type="button" ng-click="editUser(user, {passwordReset: true})">Reset Password</button>
+                <button class="btn btn-danger btn-sm" type="button" ng-disabled="user._id === currentUser()._id" ng-click="removeUser(user._id)">Remove
+                </button>
+            </div>
+        </li>
+    </ul>
+</div>
