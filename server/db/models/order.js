@@ -77,7 +77,7 @@ orderSchema.methods.commit = function() {
 //send confirmation email
 orderSchema.methods.confirm = function() {
   var o = this;
-  mailer.sendOrderConfirmation({ to: this.email })
+  mailer.sendOrderConfirmation({ to: this.email, subject: 'Your order has been ' + this.status + '!' }, {order: this})
   .then(function(err){
     console.log(err);    
   }, function(success){
