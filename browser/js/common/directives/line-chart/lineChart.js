@@ -9,7 +9,7 @@ app.directive('lineChart', function(){
       $scope.options = {
            chart: {
                type: 'lineChart',
-               height: 450,
+               height: 250,
                margin : {
                    top: 20,
                    right: 20,
@@ -62,7 +62,7 @@ app.directive('lineChart', function(){
              }
            }
           data.push([date, itemsByCategory.reduce(function(acc, it){
-            return acc + (it.price * it.quantity);
+            return acc + (it.price);
           },0)]);
          }
          return data;

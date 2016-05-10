@@ -3,10 +3,11 @@ app.config(function($stateProvider){
     .state('admin.metrics', {
       url: '/metrics',
       templateUrl: '/js/admin/metrics/metrics.html',
-      controller: function(products, categories, orders, $scope){
+      controller: function(users, products, categories, orders, $scope){
         $scope.products = products;
         $scope.categories = categories;
         $scope.orders = orders;
+        $scope.users = users;
       },
       resolve: {
         products: function(ProductsFactory){
@@ -17,6 +18,9 @@ app.config(function($stateProvider){
         },
         orders: function(AdminFactory){
           return AdminFactory.getAllOrders();
+        },
+        users: function(AdminFactory){
+          return AdminFactory.getUsers();
         }
       }
 

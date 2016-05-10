@@ -10,7 +10,7 @@ app.directive('pieChart', function(){
       $scope.options = {
             chart: {
                 type: 'pieChart',
-                height: 500,
+                height: 300,
                 x: function(d){
                   return d.key;
                 },

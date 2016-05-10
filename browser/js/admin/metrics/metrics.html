@@ -1,8 +1,16 @@
 <div>
+  <h3>April: Average Daily Sale per User </h3>
+  <bar-chart orders="orders" users="users"></bar-chart>
+</div>
+<div>
   <h3>April: Daily Sales by Category</h3>
   <line-chart orders="orders" categories="categories"></line-chart>
 </div>
 <div class="col-md-6 row">
   <h3> Products by Category</h3>
   <pie-chart products="products" categories="categories"></pie-chart>
+</div>
+<div class="col-md-6 row">
+  <h3>April: Total Sales by Category</h3>
+  <donut-chart orders="orders" categories="categories"></donut-chart>
 </div>
