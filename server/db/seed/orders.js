@@ -17,7 +17,7 @@ function seed(){
       var n = Math.round(Math.random() * 5);
       var purchases = [];
       for(var k = 0; k < n; k++){
-        purchases.push(new Date('4/' + i + '/2016'));
+        purchases.push(new Date('4/' + i + '/2016 00:00'));
       }
       dates = dates.concat(purchases);
     }
