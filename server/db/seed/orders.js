@@ -14,11 +14,16 @@ function seed(){
   .spread(function(products, users){
     var dates = [];
     for (var i = 1; i< 31; i++){
-      dates.push(new Date('4/' + i + '/2016'));
+      var n = Math.round(Math.random() * 5);
+      var purchases = [];
+      for(var k = 0; k < n; k++){
+        purchases.push(new Date('4/' + i + '/2016'));
+      }
+      dates = dates.concat(purchases);
     }
     var orders = dates.map(function(date){
       var user = getRandom(users);
-      var rand = Math.round(Math.random() * 3 + 1);
+      var rand = Math.round(Math.random() * 2 + 1);
       var items = [];
       while(rand-- >= 0){
         var product = getRandom(products),
