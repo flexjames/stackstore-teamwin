@@ -9,7 +9,8 @@ app.config(function($stateProvider){
           {text: 'Users', state: 'admin.users'},
           {text: 'Products', state: 'admin.products'},
           {text: 'Orders', state: 'admin.orders'},
-          {text: 'Categories', state: 'admin.categories'}
+          {text: 'Categories', state: 'admin.categories'},
+          {text: 'Metrics', state: 'admin.metrics'}
         ];
       }
     });

@@ -11,6 +11,18 @@ function seed(){
       {
           email: 'obama@gmail.com',
           password: 'potus'
+      },
+      {
+        email: 'jarjar@gmail.com',
+        password: 'binks'
+      },
+      {
+        email: 'darth@gmail.com',
+        password: 'father'
+      },
+      {
+        email: 'han@gmail.com',
+        password: 'solo'
       }
   ];
   console.log('seeding users...');

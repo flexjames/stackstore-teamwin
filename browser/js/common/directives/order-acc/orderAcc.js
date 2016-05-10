@@ -3,7 +3,8 @@ app.directive('orderAcc', function(){
     templateUrl: 'js/common/directives/order-acc/order-acc.html',
     scope: {
       orders: '=',
-      admin: '='
+      admin: '=',
+      users: '='
     },
     controller: function($scope, UserFactory, CartFactory, UtilFactory, AdminFactory){
       $scope.data = {};
@@ -16,9 +17,10 @@ app.directive('orderAcc', function(){
         });
       };
       $scope.getUser = function(order){
-        UserFactory.getOneUser(order.user).then(function(user){
+          var user = $scope.users.filter(function(it){
+            return it._id === order.user;
+          })[0];
           order.useremail = user.email;
-        });
       };
       $scope.changeStatus = function(order){
         if (order.newStatus)
