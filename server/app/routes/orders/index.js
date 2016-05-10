@@ -13,7 +13,7 @@ router.get('/new', function(req, res, next) {
 //Admin route
 router.get('/', function(req,res,next){
   if (req.user.isAdmin){
-    Order.find().then(function(orders){
+    Order.find().sort('-created').then(function(orders){
       res.json(orders);
     });
   } else{
