@@ -47,9 +47,9 @@ app.directive('lineChart', function(){
        function generateData(category){
          var data =[];
          for(var i = 1; i < 31; i++){
-           var date = new Date('4/'+ i + '/16');
+           var date = new Date('4/'+ i + '/16 00:00');
            var ordersForDay = $scope.orders.filter(function(it){
-             return new Date(it.created).getTime() == date.getTime();
+             return new Date(it.created).getTime().toString() == date.getTime().toString();
            });
            var itemsByCategory = [];
            if (ordersForDay.length){
