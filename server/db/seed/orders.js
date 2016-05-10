@@ -13,8 +13,9 @@ function seed(){
   return Promise.join(Product.find(), User.find())
   .spread(function(products, users){
     var dates = [];
-    for (var i = 1;i< 31;i++)
+    for (var i = 1; i< 31; i++){
       dates.push(new Date('4/' + i + '/2016'));
+    }
     var orders = dates.map(function(date){
       var user = getRandom(users);
       var rand = Math.round(Math.random() * 3 + 1);

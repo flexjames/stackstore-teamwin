@@ -3,8 +3,9 @@ app.config(function($stateProvider){
   .state('admin.orders', {
     templateUrl: '/js/admin/orders/admin-orders.html',
     url: '/orders',
-    controller: function(orders, $scope, AdminFactory){
+    controller: function(users, orders, $scope, AdminFactory){
       var _orders = $scope.orders = orders;
+      $scope.users = users;
       $scope.filterOrders = function(status){
         if (status){
           $scope.orders = _orders.filter(function(it){
@@ -18,6 +19,9 @@ app.config(function($stateProvider){
     resolve: {
       orders: function(AdminFactory){
         return AdminFactory.getAllOrders();
+      },
+      users: function(AdminFactory){
+        return AdminFactory.getUsers();
       }
     }
   });
